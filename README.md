@@ -1,5 +1,1 @@
-
-# Specification 'threat-modeling'
-
-This is the repository for threat-modeling. You're welcome to contribute! Let's make the Web rock our socks
-off!
+This is the repository for the [Threat Modeling Community Group (TMCG)](https://www.w3.org/community/tmcg/).
