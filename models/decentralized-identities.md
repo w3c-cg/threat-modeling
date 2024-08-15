@@ -100,27 +100,22 @@ We can consider three general flows, with four "ceremonies" where the various ac
 
 It is important to note that the flow stops here and can be safely continued in several ways. For example, the _Holder_ receives credentials from an _Issuer_ and uses them to identify themself on a _Verifier_ to buy a physical object or ticket to an event. So the _Verifier_ could become an _Issuer_ to issue a certificate of authenticity for good or issue the ticket directly into the _Holder's_ Wallet.
 
-**Credential Issuing (CI)**
-
-1. The *Issuer* requests a certain authentication mechanism from the *Holder*. Typically, the higher the [level of assurance](https://id4d.worldbank.org/guide/levels-assurance-loas), the stronger the authentication requires.
-2. After authentication, the *Holder* asks the *Issuer* for the credential, or the _Issuer_ submits it.
-4. If both parties agree, the Issuer sends the credential to the Holder in a specific format.
-5. The holder enters his credential into the *Wallet*.
-
-**Credential-Presentation (CP)**
-1. The _Holder_ requests access to a specific resource or service from the _Verifier_.
-2. The _Verifier_ then presents a request for proof to the Holder. This can either be done actively (e.g., the Verifier presents a QR code that the Holder has to scan) or passively (e.g., they accessed a web page and were asked to access a credential).
-3. Through the *Wallet*, the holder's *Agent* determines if there are credentials to generate the required *Proof*. 
-4. The *Holder* may use the proof explicitly if they possess it.
-5. The _Agent_ of the _Holder_ then prepares the Presentation - which can contain the full credential or part of it-  and sends it to the _Verifier_.
-
-**Credential-Verification (CV)**
-1. The _Agent_ of the _Verifier_ verifies the _Presentation_ (e.g., if the Presentation and the contained Credentials are signed correctly, issued by an _Issuer_ they trust, compliant with their policy, the Holder is entitled to hold it, and that it has not been revoked or expired). The revocation check can be done using the methods defined by the specific credential.
-2. If the verification is successful, the *Verifier* gives the *Holder* the access.
-
-**Credential-Revocation (CR)**
-
-1. The *Issuer* can revoke a credential in various ways.
+* **Credential Issuing (CI):**
+    1. The *Issuer* requests a certain authentication mechanism from the *Holder*.
+    2. After authentication, the *Holder* asks the *Issuer* for the credential or the *Issuer* submits it.
+    4. If both parties agree, the *Issuer* sends the credential to the Holder in a specific format.
+    5. The *Holder* enters their credential into the *Wallet*.
+* **Credential-Presentation (CP)**
+    1. The *Holder* requests access to a specific resource or service from the *Verifier*.
+    2. The *Verifier* then presents a request for proof to the *Holder*. This can either be done actively (e.g., the Verifier presents a QR code that the Holder has to scan) or passively (e.g., they accessed a web page and were asked to access a credential).
+    3. Through the *Wallet*, the holder's user agent determines if there are credentials to generate the required *Proof*. 
+    4. The *Holder* may use the proof explicitly if they possess it.
+    5. The user agent of the *Holder* then prepares the Presentation - which can contain the full credential or part of it-  and sends it to the *Verifier*.
+* **Credential-Verification (CV)**
+    1. The user agent of the *Verifier* verifies the *Presentation* (e.g., if the Presentation and the contained Credentials are signed correctly, issued by an *Issuer* they trust, compliant with their policy, the Holder is entitled to hold it, and that it has not been revoked or expired). The revocation check can be done using the methods defined by the specific credential.
+    2. If the verification is successful, the *Verifier* gives the *Holder* the access.
+* **Credential-Revocation (CR)**
+    1. The *Issuer* can revoke a credential in various ways.
 
 ### Trust and Trust Boundaries
 
