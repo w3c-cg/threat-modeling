@@ -2,21 +2,22 @@
 
 ## Status of this document
 
-An outline of the many concerns related to these areas of work for discussion starting and initial principles for addressing user considerations.
+This document is the live "meta" Threat Model related to Decentralized Identities, focusing on Digital Credentials. 
 
-Editor: Simone Onofri, simone@w3.org
+This outlines the many concerns related to these work areas, along with initial principles for addressing user considerations for starting discussion.
+
+Editor: Simone Onofri (, simone@w3.org
 
 ## Scope
 
-This document is the living Threat Model related to Decentralized Identities. 
+The topic of Digital Identities is vast and intricate. Defining the initial scope of the model, which can be expanded when necessary, if we consider the ecosystem of Digital Identities, we find ourselves in the specific case of Decentralized Identities, those identities related to people and in particular those considered high-assurance (e.g., those issued by governments) and in the **Layer 3: "Credentials" and precisely the *Credential-Presentation phase*** - as defined by the [SSI Technology Stack from ToITP](https://trustoverip.org/toip-model/) and [DIF FAQ](https://identity.foundation/faq/).
 
-The topic is vast and intricate. Our primary focus is on Decentralized Identities, particularly the cases associated with the proposed [Digital Credentials API](https://wicg.github.io/digital-credentials/) for the [FedID WG](https://github.com/w3c/strategy/issues/450).
+On the one hand, the need arose within the W3C about the potential adoption of the [Digital Credentials API](https://wicg.github.io/digital-credentials/) - which would allow User-Agents to mediate communication between a website requiring the submission of evidence and the user's Wallet - by the [Federated Identity Working Group](https://github.com/w3c/strategy/issues/450), on the other hand the lack of a more general model analyzing threats on the various levels related to Security, Privacy, and Human Rights was also identified.
 
-Considering the four-layered [SSI Technology Stack from ToITP](https://trustoverip.org/toip-model/), we are starting from **Layer 3: "Credentials" and precisely the *Credential-Presentation phase***, using the architecture related to Verifiable Credentials, which is an open standard and, therefore, can be analyzed by everybody as a reference architecture.
+As the Threat Model is a living document, it can be expanded on the other parts of the architecture and at a different level of detail, e.g., going deep into cryptographic aspects of a specific profile or expanding in the broader context of governance to identify or mitigate some threats.
 
-As the Threat Model is a living document, it can be expanded on the other parts of the architecture and at a different level of detail, e.g., going deep into cryptographic aspects of a specific profile.
-
-In any case, particularly when analyzing broader contexts such as Security, Privacy, and Harm, the various mitigations and the scope of the analysis also span the other elements of the stack.
+It is also important to note that because it is a generic model, it is useful for understanding the properties and requirements needed for Security, Privacy, and Harm.
+Therefore, it is important later to carry over these properties into the specific architecture or implementation, which is defined precisely by architectural and technological choices (e.g., a profile).
 
 It is intended to be a choral analysis. It stems from the need to understand a Threat Model to guide the development of Decentralized Identities in a secure/privacy-preserving way and avoid harm. It will start from the Digital Credentials API from a high-level perspective. 
 
