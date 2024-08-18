@@ -4,9 +4,9 @@
 
 This document is the live "meta" Threat Model related to Decentralized Identities, focusing on Digital Credentials. 
 
-This outlines the many concerns related to these work areas, along with initial principles for addressing user considerations for starting discussion.
+This outlines the many concerns related to these work areas and the initial principles for addressing user considerations for starting a discussion.
 
-Editor: Simone Onofri (, simone@w3.org
+Editor: Simone Onofri (W3C) simone@w3.org
 
 ## Scope
 
