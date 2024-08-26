@@ -369,7 +369,7 @@ One effective though inefficient approach to threat modeling is to cycle the var
   - *Mitigations*:
      - Implement Digital Signatures
      - During the presentation, Indicate proper messages for identifying the _Verifier_ to limit Phishing Attacks.
-      - During issuing, use proper LOAs depending on the issued credentials.
+     - During issuing, use proper LOAs depending on the issued credentials.
   
 - **Tampering** (Threats to Integrity):
   - *Description*: Modifying something on disk, network, memory, or elsewhere.
@@ -476,6 +476,10 @@ Considering the specific case of government credentials issued to people, it is 
 
 Another scenario is the use of a credential for authentication:
 - In contrast to what can happen with credentials in other identity models, where credentials are used primarily for authentication, it can be risky to use a credential issued by an issuer to authenticate to a service that is not under the control of the issuer, as a malicious issuer could generate a parallel ad-hoc credential to authenticate. For example, it may not be a good idea to log into your personal e-mail with a government-issued credential such as a passport.
+
+Other threats that [must be considered](https://github.com/w3c/identity-web-impact/issues/29#issuecomment-2309436586):
+ - Identity leakage
+ - Identity impersonation
 
 ## What are we going to do about it?
 
