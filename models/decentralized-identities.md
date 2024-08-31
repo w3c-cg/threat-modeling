@@ -29,7 +29,7 @@ For Identity, we can refer to the definition in ISO/IEC 24760-1:2019 "[IT Securi
 
 We present **credentials** to claim that we have a certain identity, whether in the physical or digital world. Just as we do not have a one-size-fits-all definition of identity, we also do not have a one-size-fits-all definition of credential in IT, as it changes according to context.
 
-If we use the credential definition from the [W3C Verifiable Credentials Data Model](https://www.w3.org/TR/vc-data-model-2.0/#dfn-credential) (VCDM), it states: “a _set of one or more claims made by an issuer._” Its framing is in the Decentralized Identity Model, and we can map the ISO’s attributes to VCDM claims.
+If we use the credential definition from the [W3C Verifiable Credentials Data Model](https://www.w3.org/TR/vc-data-model-2.0/#dfn-credential) (VCDM), it states: “a _set of one or more claims made by an issuer._” Its framing is in the Decentralized Identity Model, and we can map the ISO’s _attributes_ to VCDM _claims_.
 
 Taking the example of a person, these characteristics can be physical appearance, voice, a set of beliefs, habits, and so on. It is important to distinguish identity from the identifier (e.g., a user name).
 
@@ -156,7 +156,7 @@ The mechanism to use VCDM with JOSE/COSE is described in [Securing Verifiable Cr
 
 ### Assets
 
-Assuming that the main asset is the credentials and information derived during its life cycle, we can consider the protection of its three Privacy Properties, as they were defined by [Ben Laurie](http://www.links.org/files/selective-disclosure.pdf), as the basis:
+Assuming that the main asset is the credential and information derived during its life cycle, we can consider the protection of its three Privacy Properties, as they were defined by [Ben Laurie](http://www.links.org/files/selective-disclosure.pdf), as the basis:
 - Verifiable
 - Minimal
 - Unlinkable
