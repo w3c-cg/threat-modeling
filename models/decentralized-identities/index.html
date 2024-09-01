@@ -1,0 +1,1337 @@
+<!doctype html><html lang="en">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Threat Model for Decentralized Identities</title>
+  <meta content="w3c/CG-DRAFT" name="w3c-status">
+  <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
+  <meta content="Bikeshed version 6270e4735, updated Tue Aug 6 12:12:30 2024 -0700" name="generator">
+  <link href="https://w3c-cg.github.io/threat-modeling/decentralized-identity/" rel="canonical">
+  <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
+  <meta content="682f8406df5f1ab3bfd241c8b15833ef336fb1d8" name="revision">
+  <meta content="dark light" name="color-scheme">
+  <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
+<style>/* Boilerplate: style-autolinks */
+.css.css, .property.property, .descriptor.descriptor {
+    color: var(--a-normal-text);
+    font-size: inherit;
+    font-family: inherit;
+}
+.css::before, .property::before, .descriptor::before {
+    content: "‘";
+}
+.css::after, .property::after, .descriptor::after {
+    content: "’";
+}
+.property, .descriptor {
+    /* Don't wrap property and descriptor names */
+    white-space: nowrap;
+}
+.type { /* CSS value <type> */
+    font-style: italic;
+}
+pre .property::before, pre .property::after {
+    content: "";
+}
+[data-link-type="property"]::before,
+[data-link-type="propdesc"]::before,
+[data-link-type="descriptor"]::before,
+[data-link-type="value"]::before,
+[data-link-type="function"]::before,
+[data-link-type="at-rule"]::before,
+[data-link-type="selector"]::before,
+[data-link-type="maybe"]::before {
+    content: "‘";
+}
+[data-link-type="property"]::after,
+[data-link-type="propdesc"]::after,
+[data-link-type="descriptor"]::after,
+[data-link-type="value"]::after,
+[data-link-type="function"]::after,
+[data-link-type="at-rule"]::after,
+[data-link-type="selector"]::after,
+[data-link-type="maybe"]::after {
+    content: "’";
+}
+
+[data-link-type].production::before,
+[data-link-type].production::after,
+.prod [data-link-type]::before,
+.prod [data-link-type]::after {
+    content: "";
+}
+
+[data-link-type=element],
+[data-link-type=element-attr] {
+    font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    font-size: .9em;
+}
+[data-link-type=element]::before { content: "<" }
+[data-link-type=element]::after  { content: ">" }
+
+[data-link-type=biblio] {
+    white-space: pre;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --selflink-text: black;
+        --selflink-bg: silver;
+        --selflink-hover-text: white;
+    }
+}
+</style>
+<style>/* Boilerplate: style-colors */
+/* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
+:root {
+    color-scheme: light dark;
+
+    --text: black;
+    --bg: white;
+
+    --unofficial-watermark: url(https://www.w3.org/StyleSheets/TR/2016/logos/UD-watermark);
+
+    --logo-bg: #1a5e9a;
+    --logo-active-bg: #c00;
+    --logo-text: white;
+
+    --tocnav-normal-text: #707070;
+    --tocnav-normal-bg: var(--bg);
+    --tocnav-hover-text: var(--tocnav-normal-text);
+    --tocnav-hover-bg: #f8f8f8;
+    --tocnav-active-text: #c00;
+    --tocnav-active-bg: var(--tocnav-normal-bg);
+
+    --tocsidebar-text: var(--text);
+    --tocsidebar-bg: #f7f8f9;
+    --tocsidebar-shadow: rgba(0,0,0,.1);
+    --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+    --toclink-text: var(--text);
+    --toclink-underline: #3980b5;
+    --toclink-visited-text: var(--toclink-text);
+    --toclink-visited-underline: #054572;
+
+    --heading-text: #005a9c;
+
+    --hr-text: var(--text);
+
+    --algo-border: #def;
+
+    --del-text: red;
+    --del-bg: transparent;
+    --ins-text: #080;
+    --ins-bg: transparent;
+
+    --a-normal-text: #034575;
+    --a-normal-underline: #bbb;
+    --a-visited-text: var(--a-normal-text);
+    --a-visited-underline: #707070;
+    --a-hover-bg: rgba(75%, 75%, 75%, .25);
+    --a-active-text: #c00;
+    --a-active-underline: #c00;
+
+    --blockquote-border: silver;
+    --blockquote-bg: transparent;
+    --blockquote-text: currentcolor;
+
+    --issue-border: #e05252;
+    --issue-bg: #fbe9e9;
+    --issue-text: var(--text);
+    --issueheading-text: #831616;
+
+    --example-border: #e0cb52;
+    --example-bg: #fcfaee;
+    --example-text: var(--text);
+    --exampleheading-text: #574b0f;
+
+    --note-border: #52e052;
+    --note-bg: #e9fbe9;
+    --note-text: var(--text);
+    --noteheading-text: hsl(120, 70%, 30%);
+    --notesummary-underline: silver;
+
+    --assertion-border: #aaa;
+    --assertion-bg: #eee;
+    --assertion-text: black;
+
+    --advisement-border: orange;
+    --advisement-bg: #fec;
+    --advisement-text: var(--text);
+    --advisementheading-text: #b35f00;
+
+    --warning-border: red;
+    --warning-bg: hsla(40,100%,50%,0.95);
+    --warning-text: var(--text);
+
+    --amendment-border: #330099;
+    --amendment-bg: #F5F0FF;
+    --amendment-text: var(--text);
+    --amendmentheading-text: #220066;
+
+    --def-border: #8ccbf2;
+    --def-bg: #def;
+    --def-text: var(--text);
+    --defrow-border: #bbd7e9;
+
+    --datacell-border: silver;
+
+    --indexinfo-text: #707070;
+
+    --indextable-hover-text: black;
+    --indextable-hover-bg: #f7f8f9;
+
+    --outdatedspec-bg: rgba(0, 0, 0, .5);
+    --outdatedspec-text: black;
+    --outdated-bg: maroon;
+    --outdated-text: white;
+    --outdated-shadow: red;
+
+    --editedrec-bg: darkorange;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #ddd;
+        --bg: black;
+
+        --unofficial-watermark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg fill='%23100808' transform='translate(200 200) rotate(-45) translate(-200 -200)' stroke='%23100808' stroke-width='3'%3E%3Ctext x='50%25' y='220' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EUNOFFICIAL%3C/text%3E%3Ctext x='50%25' y='305' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EDRAFT%3C/text%3E%3C/g%3E%3C/svg%3E");
+
+        --logo-bg: #1a5e9a;
+        --logo-active-bg: #c00;
+        --logo-text: white;
+
+        --tocnav-normal-text: #999;
+        --tocnav-normal-bg: var(--bg);
+        --tocnav-hover-text: var(--tocnav-normal-text);
+        --tocnav-hover-bg: #080808;
+        --tocnav-active-text: #f44;
+        --tocnav-active-bg: var(--tocnav-normal-bg);
+
+        --tocsidebar-text: var(--text);
+        --tocsidebar-bg: #080808;
+        --tocsidebar-shadow: rgba(255,255,255,.1);
+        --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+        --toclink-text: var(--text);
+        --toclink-underline: #6af;
+        --toclink-visited-text: var(--toclink-text);
+        --toclink-visited-underline: #054572;
+
+        --heading-text: #8af;
+
+        --hr-text: var(--text);
+
+        --algo-border: #456;
+
+        --del-text: #f44;
+        --del-bg: transparent;
+        --ins-text: #4a4;
+        --ins-bg: transparent;
+
+        --a-normal-text: #6af;
+        --a-normal-underline: #555;
+        --a-visited-text: var(--a-normal-text);
+        --a-visited-underline: var(--a-normal-underline);
+        --a-hover-bg: rgba(25%, 25%, 25%, .2);
+        --a-active-text: #f44;
+        --a-active-underline: var(--a-active-text);
+
+        --borderedblock-bg: rgba(255, 255, 255, .05);
+
+        --blockquote-border: silver;
+        --blockquote-bg: var(--borderedblock-bg);
+        --blockquote-text: currentcolor;
+
+        --issue-border: #e05252;
+        --issue-bg: var(--borderedblock-bg);
+        --issue-text: var(--text);
+        --issueheading-text: hsl(0deg, 70%, 70%);
+
+        --example-border: hsl(50deg, 90%, 60%);
+        --example-bg: var(--borderedblock-bg);
+        --example-text: var(--text);
+        --exampleheading-text: hsl(50deg, 70%, 70%);
+
+        --note-border: hsl(120deg, 100%, 35%);
+        --note-bg: var(--borderedblock-bg);
+        --note-text: var(--text);
+        --noteheading-text: hsl(120, 70%, 70%);
+        --notesummary-underline: silver;
+
+        --assertion-border: #444;
+        --assertion-bg: var(--borderedblock-bg);
+        --assertion-text: var(--text);
+
+        --advisement-border: orange;
+        --advisement-bg: #222218;
+        --advisement-text: var(--text);
+        --advisementheading-text: #f84;
+
+        --warning-border: red;
+        --warning-bg: hsla(40,100%,20%,0.95);
+        --warning-text: var(--text);
+
+        --amendment-border: #330099;
+        --amendment-bg: #080010;
+        --amendment-text: var(--text);
+        --amendmentheading-text: #cc00ff;
+
+        --def-border: #8ccbf2;
+        --def-bg: #080818;
+        --def-text: var(--text);
+        --defrow-border: #136;
+
+        --datacell-border: silver;
+
+        --indexinfo-text: #aaa;
+
+        --indextable-hover-text: var(--text);
+        --indextable-hover-bg: #181818;
+
+        --outdatedspec-bg: rgba(255, 255, 255, .5);
+        --outdatedspec-text: black;
+        --outdated-bg: maroon;
+        --outdated-text: white;
+        --outdated-shadow: red;
+
+        --editedrec-bg: darkorange;
+    }
+    /* In case a transparent-bg image doesn't expect to be on a dark bg,
+       which is quite common in practice... */
+    img { background: white; }
+}
+</style>
+<style>/* Boilerplate: style-counters */
+body {
+    counter-reset: example figure issue;
+}
+.issue {
+    counter-increment: issue;
+}
+.issue:not(.no-marker)::before {
+    content: "Issue " counter(issue);
+}
+
+.example {
+    counter-increment: example;
+}
+.example:not(.no-marker)::before {
+    content: "Example " counter(example);
+}
+.invalid.example:not(.no-marker)::before,
+.illegal.example:not(.no-marker)::before {
+    content: "Invalid Example" counter(example);
+}
+
+figcaption {
+    counter-increment: figure;
+}
+figcaption:not(.no-marker)::before {
+    content: "Figure " counter(figure) " ";
+}
+</style>
+<style>/* Boilerplate: style-issues */
+a[href].issue-return {
+    float: right;
+    float: inline-end;
+    color: var(--issueheading-text);
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
+<style>/* Boilerplate: style-md-lists */
+/* This is a weird hack for me not yet following the commonmark spec
+   regarding paragraph and lists. */
+[data-md] > :first-child {
+    margin-top: 0;
+}
+[data-md] > :last-child {
+    margin-bottom: 0;
+}
+</style>
+<style>/* Boilerplate: style-selflinks */
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
+.heading, .issue, .note, .example, li, dt {
+    position: relative;
+}
+a.self-link {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * (3.5rem - 26px));
+    width: calc(3.5rem - 26px);
+    height: 2em;
+    text-align: center;
+    border: none;
+    transition: opacity .2s;
+    opacity: .5;
+}
+a.self-link:hover {
+    opacity: 1;
+}
+.heading > a.self-link {
+    font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
+}
+li > a.self-link {
+    left: calc(-1 * (3.5rem - 26px) - 2em);
+}
+dfn > a.self-link {
+    top: auto;
+    left: auto;
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
+    font-style: normal;
+    transition: opacity .2s, background-color .2s, color .2s;
+}
+dfn:hover > a.self-link {
+    opacity: 1;
+}
+dfn > a.self-link:hover {
+    color: var(--selflink-hover-text);
+}
+
+a.self-link::before            { content: "¶"; }
+.heading > a.self-link::before { content: "§"; }
+dfn > a.self-link::before      { content: "#"; }
+</style>
+ <body class="h-entry">
+  <div class="head">
+   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
+   <h1 class="p-name no-ref" id="title">Threat Model for Decentralized Identities</h1>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2024-09-01">1 September 2024</time></p>
+   <details open>
+    <summary>More details about this document</summary>
+    <div data-fill-with="spec-metadata">
+     <dl>
+      <dt>This version:
+      <dd><a class="u-url" href="https://w3c-cg.github.io/threat-modeling/decentralized-identity/">https://w3c-cg.github.io/threat-modeling/decentralized-identity/</a>
+      <dt>Feedback:
+      <dd><span><a href="mailto:public-tmcg@w3.org?subject=%5Bthreat-model-decentralized-identities%5D%20YOUR%20TOPIC%20HERE">public-tmcg@w3.org</a> with subject line “<kbd>[threat-model-decentralized-identities] <i data-lt>… message topic …</i></kbd>” (<a href="https://lists.w3.org/Archives/Public/public-tmcg/" rel="discussion">archives</a>)</span>
+      <dt>Issue Tracking:
+      <dd><a href="https://github.com/w3c-cg/threat-modeling/issues?q=is%3Aissue+is%3Aopen+%5Bdecentralized-identities%5D">GitHub</a>
+      <dt class="editor">Editor:
+      <dd class="editor p-author h-card vcard" data-editor-id="38211"><a class="p-name fn u-url url" href="https://w3.org">Simone Onofri</a> (<span class="p-org org">W3C</span>) <a class="u-email email" href="mailto:simone@w3.org">simone@w3.org</a>
+     </dl>
+    </div>
+   </details>
+   <div data-fill-with="warning"></div>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2024 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
+   <hr title="Separator for header">
+  </div>
+  <div class="p-summary" data-fill-with="abstract">
+   <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
+   <p>This document is the live "meta" Threat Model related to Decentralized Identities, focusing on Digital Credentials.</p>
+  </div>
+  <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
+  <div data-fill-with="status">
+   <p></p>
+   <p>This outlines the many concerns related to these work areas and the initial principles for addressing user considerations for starting a discussion.</p>
+  </div>
+  <div data-fill-with="at-risk"></div>
+  <nav data-fill-with="table-of-contents" id="toc">
+   <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
+   <ol class="toc" role="directory">
+    <li>
+     <a href="#introduction"><span class="secno">1</span> <span class="content">Introduction</span></a>
+     <ol class="toc">
+      <li>
+       <a href="#scope"><span class="secno">1.1</span> <span class="content">Scope</span></a>
+       <ol class="toc">
+        <li><a href="#terminology"><span class="secno">1.1.1</span> <span class="content">Terminology</span></a>
+       </ol>
+      <li><a href="#related-work"><span class="secno">1.2</span> <span class="content">Related Work</span></a>
+      <li><a href="#methodology"><span class="secno">1.3</span> <span class="content">Methodology</span></a>
+      <li><a href="#channel-and-vector"><span class="secno">1.4</span> <span class="content">Channel and Vector</span></a>
+     </ol>
+    <li>
+     <a href="#analysis"><span class="secno">2</span> <span class="content">Analysis</span></a>
+     <ol class="toc">
+      <li>
+       <a href="#what-are-we-building"><span class="secno">2.1</span> <span class="content">What are we building?</span></a>
+       <ol class="toc">
+        <li><a href="#architecture-and-actors"><span class="secno">2.1.1</span> <span class="content">Architecture and Actors</span></a>
+        <li><a href="#flows"><span class="secno">2.1.2</span> <span class="content">Flows</span></a>
+        <li><a href="#trust-and-trust-boundaries"><span class="secno">2.1.3</span> <span class="content">Trust and Trust Boundaries</span></a>
+        <li><a href="#data-model-formats-protocols"><span class="secno">2.1.4</span> <span class="content">Data Model, Formats, Protocols</span></a>
+        <li>
+         <a href="#assets"><span class="secno">2.1.5</span> <span class="content">Assets</span></a>
+         <ol class="toc">
+          <li><a href="#minimization-scale"><span class="secno">2.1.5.1</span> <span class="content">Minimization Scale</span></a>
+          <li><a href="#unlinkability-scale"><span class="secno">2.1.5.2</span> <span class="content">Unlinkability Scale</span></a>
+         </ol>
+       </ol>
+      <li>
+       <a href="#what-can-go-wrong"><span class="secno">2.2</span> <span class="content">What can go wrong?</span></a>
+       <ol class="toc">
+        <li><a href="#threat-actors"><span class="secno">2.2.1</span> <span class="content">Threat Actors</span></a>
+        <li><a href="#evil-user-stories"><span class="secno">2.2.2</span> <span class="content">Evil user stories</span></a>
+        <li>
+         <a href="#finding-the-threats"><span class="secno">2.2.3</span> <span class="content">Finding the Threats</span></a>
+         <ol class="toc">
+          <li><a href="#bens-privacy-properties-objectives"><span class="secno">2.2.3.1</span> <span class="content">Ben’s Privacy Properties (Objectives)</span></a>
+          <li><a href="#linddun-threats"><span class="secno">2.2.3.2</span> <span class="content">LINDDUN (Threats)</span></a>
+          <li><a href="#rfc-6973-threats"><span class="secno">2.2.3.3</span> <span class="content">RFC 6973 (Threats)</span></a>
+          <li><a href="#rfc-3552-attacks"><span class="secno">2.2.3.4</span> <span class="content">RFC 3552 (Attacks)</span></a>
+          <li><a href="#stride-threats"><span class="secno">2.2.3.5</span> <span class="content">STRIDE (Threats)</span></a>
+          <li><a href="#osstmm-controls"><span class="secno">2.2.3.6</span> <span class="content">OSSTMM (Controls)</span></a>
+          <li><a href="#responsible-innovation-harms"><span class="secno">2.2.3.7</span> <span class="content">Responsible Innovation (Harms)</span></a>
+         </ol>
+        <li><a href="#other-threats-and-harms"><span class="secno">2.2.4</span> <span class="content">Other Threats and Harms</span></a>
+       </ol>
+      <li><a href="#what-are-we-going-to-do-about-it"><span class="secno">2.3</span> <span class="content">What are we going to do about it?</span></a>
+     </ol>
+   </ol>
+  </nav>
+  <main>
+   <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
+   <h3 class="heading settled" data-level="1.1" id="scope"><span class="secno">1.1. </span><span class="content">Scope</span><a class="self-link" href="#scope"></a></h3>
+   <p>The topic of Digital Identities is vast and intricate. Defining the initial scope of the model, which can be expanded when necessary, if we consider the ecosystem of Digital Identities, we find ourselves in the specific case of Decentralized Identities, those identities related to people and in particular those considered high-assurance (e.g., those issued by governments) and in the <strong>Layer 3: "Credentials" and precisely the *Credential-Presentation phase</strong>* - as defined by the <a href="https://trustoverip.org/toip-model/">SSI Technology Stack from ToITP</a> and <a href="https://identity.foundation/faq/">DIF FAQ</a>.</p>
+   <p>On the one hand, the need arose within the W3C about the potential adoption of the <a href="https://wicg.github.io/digital-credentials/">Digital Credentials API</a> - which would allow User-Agents to mediate communication between a website requiring the submission of evidence and the user’s Wallet - by the <a href="https://github.com/w3c/strategy/issues/450">Federated Identity Working Group</a>, on the other hand the lack of a more general model analyzing threats on the various levels related to Security, Privacy, and Human Rights was also identified.</p>
+   <p>As the Threat Model is a living document, it can be expanded on the other parts of the architecture and at a different level of detail, e.g., going deep into cryptographic aspects of a specific profile or expanding in the broader context of governance to identify or mitigate some threats.</p>
+   <p>It is also important to note that because it is a generic model, it is useful for understanding the properties and requirements needed for Security, Privacy, and Harm.
+Therefore, it is important later to carry over these properties into the specific architecture or implementation, which is defined precisely by architectural and technological choices (e.g., a profile).</p>
+   <p>It is intended to be a choral analysis. It stems from the need to understand a Threat Model to guide the development of Decentralized Identities in a secure/privacy-preserving way and avoid harm. It will start from the Digital Credentials API from a high-level perspective.</p>
+   <h4 class="heading settled" data-level="1.1.1" id="terminology"><span class="secno">1.1.1. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h4>
+   <p>For Identity, we can refer to the definition in ISO/IEC 24760-1:2019 "<a href="https://standards.iso.org/ittf/PubliclyAvailableStandards/c077582_ISO_IEC_24760-1_2019(E).zip">IT Security and Privacy - A framework for identity management</a>".</p>
+   <p><strong>Identity</strong> is “_a set of attributes related to an entity_”. Where the entity is something "_that has recognizably distinct existence_", and that can be "_logical or physical_" such as "_a person, an organization, a device, a group of such items, a human subscriber to a telecom service, a SIM card, a passport, a network interface card, a software application, a service or a website_" and the attributes are “_characteristics or properties_” such as “_an entity type, address information, telephone number, a privilege, a MAC address, a domain name_”.</p>
+   <p>We present <strong>credentials</strong> to claim that we have a certain identity, whether in the physical or digital world. Just as we do not have a one-size-fits-all definition of identity, we also do not have a one-size-fits-all definition of credential in IT, as it changes according to context.</p>
+   <p>If we use the credential definition from the <a href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-credential">W3C Verifiable Credentials Data Model</a> (VCDM), it states: “a _set of one or more claims made by an issuer._” Its framing is in the Decentralized Identity Model, and we can map the ISO’s _attributes_ to VCDM _claims_.</p>
+   <p>Taking the example of a person, these characteristics can be physical appearance, voice, a set of beliefs, habits, and so on. It is important to distinguish identity from the identifier (e.g., a user name).</p>
+   <p>It is usual to think of Digital Credentials as related to humans, particularly those issued by a government, also known as "Real-world Identities", even if we also have Non-Human Identities.</p>
+   <p>This leads to a broader consideration of the Threat Model, as it also includes Privacy as a right and Harm components.</p>
+   <h3 class="heading settled" data-level="1.2" id="related-work"><span class="secno">1.2. </span><span class="content">Related Work</span><a class="self-link" href="#related-work"></a></h3>
+   <ul>
+    <li data-md>
+     <p><a href="https://github.com/w3c/strategy/issues/458">joint work on rights-respecting digital credentials </a></p>
+    <li data-md>
+     <p><a href="https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md">User considerations for credential presentation on the Web</a></p>
+    <li data-md>
+     <p><a href="https://github.com/w3c/breakouts-day-2024/issues/12">Building Consensus on the Role of Real World Identities on the Web</a></p>
+   </ul>
+   <h3 class="heading settled" data-level="1.3" id="methodology"><span class="secno">1.3. </span><span class="content">Methodology</span><a class="self-link" href="#methodology"></a></h3>
+   <p>Since security is a _separation function between the asset and the threat_, the threat can have different impacts, such as on security, privacy, or <a href="https://learn.microsoft.com/en-us/azure/architecture/guide/responsible-innovation/harms-modeling/">harm</a>.</p>
+   <p>There are many approaches to Threat Modeling. The first approach we will use is based on <a href="https://github.com/adamshostack/4QuestionFrame">Adam Shostack 4 questions frame</a>:</p>
+   <ul>
+    <li data-md>
+     <p>What are we working on? (understanding the architecture, actors involved, etc...)</p>
+    <li data-md>
+     <p>What can go wrong? (threats, threat actors, attacks, etc...)</p>
+    <li data-md>
+     <p>What are we going to do about it? (countermeasures, residual risk, etc...)</p>
+    <li data-md>
+     <p>Did we do a good job? (reiterating until we are happy with the result)</p>
+   </ul>
+   <p>For the central phases, it is possible to use (as in Risk Management) prompt lists or checklists of either threats, attacks, or controls, for example:</p>
+   <ul>
+    <li data-md>
+     <p><a href="https://wiki.openrightsgroup.org/wiki/A_Taxonomy_of_Privacy">Solove’s Taxonomy</a></p>
+    <li data-md>
+     <p><a href="https://privacypatterns.org/patterns/">Privacy Patterns</a></p>
+    <li data-md>
+     <p><a href="https://www.w3.org/TR/privacy-principles/">Privacy Principles</a></p>
+    <li data-md>
+     <p><a href="https://linddun.org/threats/">LINDDUN</a></p>
+    <li data-md>
+     <p><a href="https://datatracker.ietf.org/doc/html/rfc6973">RFC 6973</a></p>
+    <li data-md>
+     <p><a href="https://datatracker.ietf.org/doc/html/rfc3552">RFC 3552</a></p>
+    <li data-md>
+     <p><a href="https://learn.microsoft.com/en-us/previous-versions/commerce-server/ee823878(v=cs.20)?redirectedfrom=MSDN">STRIDE</a></p>
+    <li data-md>
+     <p><a href="https://www.isecom.org/OSSTMM.3.pdf">OSSTMM v3</a></p>
+    <li data-md>
+     <p><a href="https://learn.microsoft.com/en-us/azure/architecture/guide/responsible-innovation/harms-modeling/type-of-harm">Microsoft’s Types of harm</a></p>
+   </ul>
+   <p>It is useful to frame the analysis with OSSTMM. OSSTMM controls allow analyses of what can go wrong (e.g., control not present or problem with a control).</p>
+   <p>Even if it is control-oriented and seems security-oriented, privacy is an operational control that can connect different pieces.</p>
+   <h3 class="heading settled" data-level="1.4" id="channel-and-vector"><span class="secno">1.4. </span><span class="content">Channel and Vector</span><a class="self-link" href="#channel-and-vector"></a></h3>
+   <p>OSSTMM is very precise when used to analyze, so it defines a channel and a vector.</p>
+   <p>For an accurate analysis, We are considering the COMSEC Data Networks Channel in the specific Internet/Web vector for this issue.</p>
+   <p>Although different digital credentials may have a different channel/vector (e.g., Wireless), they can still be analyzed similarly.</p>
+   <h2 class="heading settled" data-level="2" id="analysis"><span class="secno">2. </span><span class="content">Analysis</span><a class="self-link" href="#analysis"></a></h2>
+   <h3 class="heading settled" data-level="2.1" id="what-are-we-building"><span class="secno">2.1. </span><span class="content">What are we building?</span><a class="self-link" href="#what-are-we-building"></a></h3>
+   <p>To begin to create a good Threat Model, we can first consider the components of the Decentralized Identity architecture (which in this context is synonymous with Self-Sovereign Identity) as defined in <a href="https://www.w3.org/TR/vc-data-model-2.0/">W3C’s Verifiable Credentials Data Model</a> and how they interact.</p>
+   <h4 class="heading settled" data-level="2.1.1" id="architecture-and-actors"><span class="secno">2.1.1. </span><span class="content">Architecture and Actors</span><a class="self-link" href="#architecture-and-actors"></a></h4>
+   <ul>
+    <li data-md>
+     <p>We have a <em>Holder</em> who, inside a _Wallet_, has its credentials.</p>
+    <li data-md>
+     <p>We have an <em>Issuer</em> who issues the credentials to the <em>Holder</em> and manages the revocation.</p>
+    <li data-md>
+     <p>We have a <em>Verifier</em> who verifies the Holder’s credentials to give access to a resource or a service.</p>
+    <li data-md>
+     <p>We also have a <em>Verifiable Data Registry</em> (VRP) that stores identifiers and schemas.</p>
+   </ul>
+   <p><img src="https://www.w3.org/TR/vc-data-model-2.0/diagrams/ecosystem.svg"></p>
+   <p>Interactions between actors occur normatively through software or other technological mediums. We will generically call <em>Agents</em> such components. One agent might be embedded in a <em>Wallet</em> (the component that contains the <em>Holder’s</em> credentials), and another might be a Browser (which, by definition, is a user agent).</p>
+   <h4 class="heading settled" data-level="2.1.2" id="flows"><span class="secno">2.1.2. </span><span class="content">Flows</span><a class="self-link" href="#flows"></a></h4>
+   <p>We can consider three general flows, with four "ceremonies" where the various actors interact.</p>
+   <ul>
+    <li data-md>
+     <p>Credential-Issuing</p>
+    <li data-md>
+     <p>Credential-Presentation and Credential Verification</p>
+    <li data-md>
+     <p>Credential Revocation</p>
+   </ul>
+   <p>It is important to note that the flow stops here and can be safely continued in several ways. For example, the _Holder_ receives credentials from an _Issuer_ and uses them to identify themself on a _Verifier_ to buy a physical object or ticket to an event. So the _Verifier_ could become an _Issuer_ to issue a certificate of authenticity for good or issue the ticket directly into the _Holder’s_ Wallet.</p>
+   <ul>
+    <li data-md>
+     <p><strong>Credential Issuing (CI):</strong></p>
+     <ol>
+      <li data-md>
+       <p>The <em>Issuer</em> requests a certain authentication mechanism from the <em>Holder</em>.</p>
+      <li data-md>
+       <p>After authentication, the <em>Holder</em> asks the <em>Issuer</em> for the credential or the <em>Issuer</em> submits it.</p>
+      <li data-md>
+       <p>If both parties agree, the <em>Issuer</em> sends the credential to the Holder in a specific format.</p>
+      <li data-md>
+       <p>The <em>Holder</em> enters their credential into the <em>Wallet</em>.</p>
+     </ol>
+    <li data-md>
+     <p><strong>Credential-Presentation (CP)</strong></p>
+     <ol>
+      <li data-md>
+       <p>The <em>Holder</em> requests access to a specific resource or service from the <em>Verifier</em>.</p>
+      <li data-md>
+       <p>The Verifier then requests a proof from the <em>Holder</em>. This can be done actively (e.g., the Verifier presents a QR code that the Holder has to scan) or passively (e.g., they accessed a web page and were asked to access a credential).</p>
+      <li data-md>
+       <p>Through the <em>Wallet</em>, the holder’s user agent determines whether there are credentials to generate the required Proof.</p>
+      <li data-md>
+       <p>The <em>Holder</em> may use the proof explicitly if they possess it.</p>
+      <li data-md>
+       <p>The user agent of the <em>Holder</em> then prepares the Presentation - which can contain the full credential or part of it-  and sends it to the <em>Verifier</em>.</p>
+     </ol>
+    <li data-md>
+     <p><strong>Credential-Verification (CV)</strong></p>
+     <ol>
+      <li data-md>
+       <p>The user agent of the <em>Verifier</em> verifies the <em>Presentation</em> (e.g., if the Presentation and the contained Credentials are signed correctly, issued by an <em>Issuer</em> they trust, compliant with their policy, the Holder is entitled to hold it, and that it has not been revoked or expired). The revocation check can be done using the methods defined by the specific credential.</p>
+      <li data-md>
+       <p>If the verification is successful, the <em>Verifier</em> gives the <em>Holder</em> the access.</p>
+     </ol>
+    <li data-md>
+     <p><strong>Credential-Revocation (CR)</strong></p>
+     <ol>
+      <li data-md>
+       <p>The <em>Issuer</em> can revoke a credential in various ways.</p>
+     </ol>
+   </ul>
+   <h4 class="heading settled" data-level="2.1.3" id="trust-and-trust-boundaries"><span class="secno">2.1.3. </span><span class="content">Trust and Trust Boundaries</span><a class="self-link" href="#trust-and-trust-boundaries"></a></h4>
+   <p>Trust is a key element in threat modeling. In fact, in OSSTMM, it is an element of privileged access to the asset, which, by trusting, lowers the various operational controls.</p>
+   <p>At the <strong>Process level</strong>, trust relationships are:</p>
+   <ul>
+    <li data-md>
+     <p>The <em>Holder</em> trusts the <em>Issuer</em> during issuance.</p>
+    <li data-md>
+     <p>The <em>Holder</em> trusts its <em>agents</em> and <em>wallet</em>, always.</p>
+    <li data-md>
+     <p>The _Holder_ trusts the _verifier_, during the Presentation.</p>
+    <li data-md>
+     <p>The <em>Verifier</em> must trust the <em>Issuer</em> during Verification.</p>
+    <li data-md>
+     <p>All <em>actors</em> trust the record of verifiable data.</p>
+    <li data-md>
+     <p>Both the <em>holder</em> and <em>verifier</em> must trust the <em>issuer</em> to revoke VCs that have been compromised or are no longer true.</p>
+   </ul>
+   <p>At the <strong>Software level</strong>, Trust boundaries are documented in the <a href="https://www.w3.org/TR/vc-data-model-2.0/#software-trust-boundaries">Data Model in section 8.2</a>:</p>
+   <ul>
+    <li data-md>
+     <p>An issuer’s user agent (issuer software), such as an online education platform, is expected to issue only verifiable credentials to individuals that the issuer asserts have completed their educational program.</p>
+    <li data-md>
+     <p>A verifier’s user agent(verification software), such as a hiring website, is expected to only allow access to individuals with a valid verification status for verifiable credentials and verifiable presentations provided to the platform by such individuals.</p>
+    <li data-md>
+     <p>A holder’s user agent (holder software), such as a digital wallet, is expected to divulge information to a verifier only after the holder has consented to its release.</p>
+   </ul>
+   <p>However, from a threat modeling perspective, the issuer, verifier, and holder are external entities, so we have trust boundaries between the parties. This makes sense and is also why we have the concept of (crypto) verification.</p>
+   <h4 class="heading settled" data-level="2.1.4" id="data-model-formats-protocols"><span class="secno">2.1.4. </span><span class="content">Data Model, Formats, Protocols</span><a class="self-link" href="#data-model-formats-protocols"></a></h4>
+   <p>To model Decentralized Identities and Credentials, it is possible to use them as a high-level meta-model using Verifiable Credentials documentation (the list of technology is partial; feel free to extend):</p>
+   <ul>
+    <li data-md>
+     <p><strong>Data Models:</strong> abstract models for Credentials and Presentation (e.g., the <a href="https://www.w3.org/TR/vc-data-model/">Verifiable Credentials Data Model</a>, mDL in ISO/IEC <a href="https://www.iso.org/standard/69084.html">18013-5:2021</a>).</p>
+    <li data-md>
+     <p><strong>Identifiers</strong>: <a href="https://www.w3.org/TR/did-core/">DIDs</a> and the <a href="https://w3c.github.io/did-spec-registries/#did-methods">DID methods</a>, or <a href="https://w3c.github.io/WebID/spec/identity/">WebID</a>.</p>
+    <li data-md>
+     <p><strong>Encoding Schemas</strong>: JSON, JSON-LD, CBOR, CBOR-LD.</p>
+    <li data-md>
+     <p><strong>Securing Mechanisms:</strong> Each mechanism may or may not support different privacy features or be quantum-resistant:</p>
+     <ul>
+      <li data-md>
+       <p><strong>Enveloped Formats (Credential Formats)</strong>: The proof wraps around the serialization of the credential. \
+  JSONs are enveloped using JSON Object Signing and Encryption (<a href="https://datatracker.ietf.org/wg/jose/about/">JOSE</a>), and we can find JWT, JWS, and JWK here. JOSE is _cryptographically agile_ (as it can fit different cryptographic primitives) and can also have Selective Disclosure (SD) with <a href="https://www.ietf.org/archive/id/draft-fett-oauth-selective-disclosure-jwt-02.html">SD-JWT</a> (which uses HMAC). New securing mechanisms are coming up, like <a href="https://arxiv.org/abs/2406.19035">SD-BLS</a> (which uses BLS) and ongoing efforts to fit BBS#. \
+  CBORs are enveloped using CBOR Object Signing and Encryption (<a href="https://www.rfc-editor.org/rfc/rfc9052">COSE</a>). \
+  Other formats include _mdoc_ and _<a href="https://datatracker.ietf.org/wg/spice/about/">SPICE</a>_. \
+The mechanism to use VCDM with JOSE/COSE is described in <a href="https://www.w3.org/TR/vc-jose-cose/">Securing Verifiable Credentials using JOSE and COSE</a>.</p>
+      <li data-md>
+       <p><strong>Embedded Formats (Signature Algorithms):</strong> The proof is included in the serialization alongside the credentials (e.g., BBS, ECDSA, EdDSA). The mechanism is described in <a href="https://www.w3.org/TR/vc-data-integrity/">Verifiable Credential Data Integrity 1.0</a>.</p>
+     </ul>
+    <li data-md>
+     <p><strong>Status Information (Revocation Algorithms)</strong>: _Issuers_ can implement several ways to keep up to date the status of the credential, such as Revocation List, Status List (e.g., <a href="https://www.w3.org/TR/vc-bitstring-status-list/">Bitstring Status List v1.0</a>), Cryptographic Accumulators, etc.</p>
+    <li data-md>
+     <p><strong>Communication Protocols</strong>: for the different phases of Issuance and Presentation (e.g., <a href="https://openid.github.io/OpenID4VCI/openid-4-verifiable-credential-issuance-wg-draft.html">OID4VCI</a>, <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html%5D">OID4VP</a>, <a href="https://openid.net/specs/openid-connect-self-issued-v2-1_0.html">SIOPv2</a>).</p>
+   </ul>
+   <h4 class="heading settled" data-level="2.1.5" id="assets"><span class="secno">2.1.5. </span><span class="content">Assets</span><a class="self-link" href="#assets"></a></h4>
+   <p>Assuming that the main asset is the credential and information derived during its life cycle, we can consider the protection of its three Privacy Properties, as they were defined by <a href="http://www.links.org/files/selective-disclosure.pdf">Ben Laurie</a>, as the basis:</p>
+   <ul>
+    <li data-md>
+     <p>Verifiable</p>
+    <li data-md>
+     <p>Minimal</p>
+    <li data-md>
+     <p>Unlinkable</p>
+   </ul>
+   <p>These properties were defined in a very specific case of Decentralized Identities. Those related to people, and even more specifically, those issued by governments, are based on the concept of Privacy, specifically for the protection of the Holder.</p>
+   <p>While we can, therefore, consider the <em>Minimal</em> and _Unlinkable_ properties as elements of the _Holder_, the _Verifiable_ property is of interest to all. Verifiable means that the _Verifier_ can confirm who issued the credential, that it has not been tampered with, expired, or revoked, contains the required data and is possibly associated with the holder.</p>
+   <p>Therefore, The Threat Model wants to start from this specific use case, that of government-issued credentials for people, considering that it is one of the most complex.</p>
+   <p>Minimization and Unlinkability are generally interrelated (e.g.,  the less data I provide, the less they can be related). They must coexist with <em>Verifiability</em> (e.g., if I need to know that the credential has been revoked, I usually need to contact the Issuer, who has a list of revoked credentials, but in this way, it is possible to link the credential).</p>
+   <h5 class="heading settled" data-level="2.1.5.1" id="minimization-scale"><span class="secno">2.1.5.1. </span><span class="content">Minimization Scale</span><a class="self-link" href="#minimization-scale"></a></h5>
+    To try to qualify <em>Minimization</em>, we can use a scale defined by the various cryptographic techniques developed for Digital Credentials: 
+   <ul>
+    <li data-md>
+     <p>Full Disclosure (e.g., I show the whole passport).</p>
+    <li data-md>
+     <p>Selective Disclosure (e.g., I show only the date of birth).</p>
+    <li data-md>
+     <p>Predicate Disclosure (e.g., I show only the age).</p>
+    <li data-md>
+     <p>Range Disclosure (e.g., I show only that I am an adult).</p>
+   </ul>
+   <h5 class="heading settled" data-level="2.1.5.2" id="unlinkability-scale"><span class="secno">2.1.5.2. </span><span class="content">Unlinkability Scale</span><a class="self-link" href="#unlinkability-scale"></a></h5>
+    To try to qualify <em>Unlinkability</em>, we can use the <a href="https://www.cypherpunks.ca/~iang/pubs/thesis-final.pdf">Nymity Slider</a>, which classifies credentials by: 
+   <ul>
+    <li data-md>
+     <p>Verinymity (e.g., Legal name or Government Identifier).</p>
+    <li data-md>
+     <p>Persistent Pseudonymity (e.g., Nickname).</p>
+    <li data-md>
+     <p>Linkable Anonymity (e.g., Bitcoin/Ethereum Address).</p>
+    <li data-md>
+     <p>Unlinkable Anonymity (e.g., Anonymous Remailers).</p>
+   </ul>
+   <p>Therefore, it might be possible to consider "moving" the slider toward Unlinkable Anonymity, as per the properties.</p>
+   <h3 class="heading settled" data-level="2.2" id="what-can-go-wrong"><span class="secno">2.2. </span><span class="content">What can go wrong?</span><a class="self-link" href="#what-can-go-wrong"></a></h3>
+   <p>After reasoning about assets, what we can protect and "who" becomes obvious.</p>
+   <h4 class="heading settled" data-level="2.2.1" id="threat-actors"><span class="secno">2.2.1. </span><span class="content">Threat Actors</span><a class="self-link" href="#threat-actors"></a></h4>
+   <p>We have mentioned before that one of the key points is the protection of the <em>Holder</em>. Still, by simplifying and referring to the well-known practice of "trust-no-one", we can easily get the list of actors involved:</p>
+   <p>Holder, Issuer, Verifier, and their agents/software components (e.g., Browser, Wallet, Web Sites). Which of these can be a Threat Actor? To simplify the question, each actor is potentially a Threat Actor for the others. So, all against all. Indeed, one is often also a Threat Actor to oneself (e.g., <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7272062/">Alert fatigue</a>).</p>
+   <p>In addition, although there are trust relationships between the various actors and their software (valid in the various steps), such software can also be malicious. Specifically, it can track the Holders, the type of credential they have, and how and where they use it through telemetry and statistical collection, and it can push the user to certain attitudes.</p>
+   <p>One must also consider a possible external <strong>threat actor</strong>, who could also be an observer or use active techniques, and who wants to track the three main actors or their agents, such as Marketers, Data brokers, Stalkers, Identity thieves, intelligence and law enforcement agencies (laws often constrain them), and OSINT investigators.</p>
+   <p>A further case is the combination of such actors, such as multiple _Verifiers_ in cahoots or a potential collaboration between Issuer and _Verifier_ to track the _Holder_.</p>
+   <h4 class="heading settled" data-level="2.2.2" id="evil-user-stories"><span class="secno">2.2.2. </span><span class="content">Evil user stories</span><a class="self-link" href="#evil-user-stories"></a></h4>
+   <p>Using the information we now have, we can create some generic <a href="https://www.owasp.org/index.php/Agile_SoHware_Development:_Don%27t_Forget_EVIL_User_Stories">Evil User Stories</a>:</p>
+   <ul>
+    <li data-md>
+     <p>A malicious <em>Verifier</em> who wants to collect too much data from the Holder.</p>
+    <li data-md>
+     <p>A malicious <em>Holder</em> who wants to get what he is not entitled to from the verifier.</p>
+    <li data-md>
+     <p>A malicious <em>Issuer</em> who wants to track its holders.</p>
+    <li data-md>
+     <p>A malicious <em>Agent</em> who wants to track its holder.</p>
+    <li data-md>
+     <p>An external <em>Adversary</em> who wants to track the _Issuer_, how a _Verifier_ works or a specific _Holder_.</p>
+   </ul>
+   <h4 class="heading settled" data-level="2.2.3" id="finding-the-threats"><span class="secno">2.2.3. </span><span class="content">Finding the Threats</span><a class="self-link" href="#finding-the-threats"></a></h4>
+   <p>One effective though inefficient approach to threat modeling is to cycle the various lists of threats and attacks, controls, and objectives in a brainstorming session to assess how they may affect architecture components, actors, assets, and the flow in general. Using multiple frameworks may repeat some elements.</p>
+   <h5 class="heading settled" data-level="2.2.3.1" id="bens-privacy-properties-objectives"><span class="secno">2.2.3.1. </span><span class="content">Ben’s Privacy Properties (Objectives)</span><a class="self-link" href="#bens-privacy-properties-objectives"></a></h5>
+   <ul>
+    <li data-md>
+     <p><strong>Verifiable</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: There’s often no point in making a statement unless the relying party has some way of checking it is true. Note that this isn’t always a requirement—I don’t have to prove my address is mine to Amazon because it’s up to me where my goods get delivered. But I may have to prove I’m over 18 to get alcohol delivered.</p>
+      <li data-md>
+       <p><em>Analysis</em>: This brings us to the concept of integrity (via cryptographic means), which is authenticated and trusted at the level of the issuer and from what exits.</p>
+     </ul>
+    <li data-md>
+     <p><strong>Minimal</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: This is the privacy-preserving bit - I want to tell the relying party the very least he needs to know. I shouldn’t have to reveal my date of birth or prove I’m over 18 somehow.</p>
+      <li data-md>
+       <p><em>Analysis</em>: We must release only what is strictly necessary. Since this is an interaction, we can consider Subjugation interactive OSSTMM control. For example, if we need to verify age with our credentials, it is one thing to show the whole document or the date of birth (Selective Disclosure) or to answer a specific query with true-false (Predicate Proofs). This property also helps Unlinkability (the less data I have, the less correlation I can do).</p>
+     </ul>
+    <li data-md>
+     <p><strong>Unlinkable</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: If the relying party or other parties such as actors in the system, can, either on their own or in collusion, link together my various assertions, then I’ve blown the minimality requirement out of the water.</p>
+      <li data-md>
+       <p><em>Analysis</em>: It must be minimal. It should not be possible to map the issuer (Blind Signature), contact them to know if the credential has been revoked (e.g., Revocation via Cryptographic Accumulation), or use revocation lists that expose the list of credentials. Generally, if an identifier can be exploited to link identities, it should rotate (Rotational Identifiers), as with PAN numbers using Apple Pay.</p>
+     </ul>
+   </ul>
+   <h5 class="heading settled" data-level="2.2.3.2" id="linddun-threats"><span class="secno">2.2.3.2. </span><span class="content">LINDDUN (Threats)</span><a class="self-link" href="#linddun-threats"></a></h5>
+   <ul>
+    <li data-md>
+     <p><strong>Linking</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Learning more about an individual or a group by associating data items or user actions. Linking may lead to unwanted privacy implications, even if it does not reveal one’s identity.</p>
+      <li data-md>
+       <p><em>Threat</em>: We are generally driven to think of this as a threat to the Holder and linking its attributes, but per se, even an _Issuer_ can have the problem of tracking its users. This applies to a _Verifier_ (or a group of Verifiers) and an external third party observing the various exchanges or any Revocation list.</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>Use Blinded Signatures.</p>
+        <li data-md>
+         <p>The _Verifier_ should request the following: Range Proof, Predicate Proof, Selective Disclosure, and the credential.</p>
+        <li data-md>
+         <p>The _Issuer_ should use an anonymous revocation method such as Cryptographic Accumulators.</p>
+        <li data-md>
+         <p>The _Issuer_ should use random identifiers when generating the credential.</p>
+        <li data-md>
+         <p>The _Holder_ should use - when interacting with the _Verifier_ rotational and always random identifiers specific to that interaction session.</p>
+        <li data-md>
+         <p>The _Issuer_ should use (e.g., DID) privacy-preserving identifiers. Once resolved, they do not generate a connection to a system controlled directly or indirectly by the _Issuer_ itself.</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Identifying</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Identifying threats arises when the identity of individuals can be revealed through leaks, deduction, or inference in cases where this is not desired.</p>
+      <li data-md>
+       <p><em>Threat</em>: The threat is the ability to identify an individual using his credentials.</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>The _Verifier_ should request the following: Range Proof, Predicate Proof, Selective Disclosure, and the credential.</p>
+        <li data-md>
+         <p>The _Issuer_ and the _Holder_ must not write personally identifiable information (PII) or linkable identifiers in the _VDR_.</p>
+        <li data-md>
+         <p>The _Issuer_ should use an anonymous revocation method.</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Non-Repudiation</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Non-repudiation threats pertain to situations where an individual can no longer deny specific claims.</p>
+      <li data-md>
+       <p><em>Threat</em>: The inability of an actor to deny the issuance or presentation of a credential; an example is a <a href="https://www.dhs.gov/science-and-technology/publication/misuse-mobile-drivers-license-mdl-investigative-aid">use-cases from DHS</a>.</p>
+      <li data-md>
+       <p><em>Mitigations</em></p>
+       <ul>
+        <li data-md>
+         <p>The _Issuer_ must use proper Authentication during the issuing process depending on the Levels of Assurance (LOAs).</p>
+        <li data-md>
+         <p>The _Issuer_, the _Verifier_ and the _Holder_ (and their agents) need to have proper logging, e.g., following the OWASP <a href="https://github.com/OWASP/ASVS/blob/master/5.0/en/0x15-V7-Error-Logging.md">ASVS 7.1</a> e.g., each log must contain enough metadata for an investigation, time with timezone reference, without PII but with session identifiers but in a hashed format, in a common machine-readable format and possibly signed.</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Detecting</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Detecting threats pertains to situations where an individual’s involvement, participation, or membership can be deduced through observation.</p>
+      <li data-md>
+       <p><em>Threat</em>: In this case, the threat can happen in several stages: when a credential is required to be presented, the credential is verified.</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>When proof or a credential is requested, the Holder agent must return the same message and behavior (including timing, to avoid side-channel attacks) whether or not a wallet is present, whether the wallet has a credential or not, whether it has a valid credential, or whether the user does not accept instead. It is the same whether or not the user gives the browser access to the wallet.</p>
+        <li data-md>
+         <p>When a credential’s validity is verified, there should be no direct connections or systems controlled by the Issuer (e.g., when a DID is resolved) to avoid back-channel connections.</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Data Disclosure</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Data disclosure threats represent cases in which disclosures of personal data to, within, and from the system are considered problematic.</p>
+      <li data-md>
+       <p><em>Threat</em>: The threat will be disclosed during presentation and verification.</p>
+      <li data-md>
+       <p><em>Mitigations</em>:
+The _Verifier_ should request the following: Range Proof, Predicate Proof, Selective Disclosure, and the credential.</p>
+       <ul>
+        <li data-md>
+         <p>The _Issuer_ and the _Holder_ must not write personally identifiable information (PII) or linkable identifiers in the _VDR_.</p>
+        <li data-md>
+         <p>The _Issuer_ should use an anonymous revocation method.</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Unawareness &amp; Unintervenability</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Unawareness and unintervenability threats occur when individuals are insufficiently informed, involved, or empowered concerning the processing of their data.</p>
+      <li data-md>
+       <p><em>Threat</em>: For the _Holder_, unaware of how their credentials are used or shared.</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>The _Holder_ must be informed when a _Verifier_ asks for the credential’s Full Disclosure or Selected Disclosure.</p>
+        <li data-md>
+         <p>The _Holder_ must be informed when their credentials is _Phoning Home_ or possible _back-channel connections_</p>
+        <li data-md>
+         <p>The _Holder_ must consent to each use of their credential and must identify the Verifier, the Proof Requested (at the moment of request), and which credentials and information are shared with the Verifier after the selection.</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Non-Compliance</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Non-compliance threats arise when the system deviates from legislation, regulation, standards, and best practices, leading to incomplete risk management.</p>
+      <li data-md>
+       <p><em>Threat</em>: The risk of credentials not complying with legal, regulatory, or policy requirements. It is also possible to translate this element about minimal training for the _Holder_, particularly if they are in a protected or at-risk category, so they can be aware of what they are doing and the risks associated with Social Engineering.</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>Provide Security Awareness Training to the _Holder_</p>
+        <li data-md>
+         <p>Verifier and Issuers must be subjected to regular audit</p>
+        <li data-md>
+         <p>The standards and their implementation must contain mitigations for Harms such as Surveillance, Discrimination, Dehumanization, Loss of Autonomy, and Exclusion.</p>
+       </ul>
+     </ul>
+   </ul>
+   <h5 class="heading settled" data-level="2.2.3.3" id="rfc-6973-threats"><span class="secno">2.2.3.3. </span><span class="content">RFC 6973 (Threats)</span><a class="self-link" href="#rfc-6973-threats"></a></h5>
+   <ul>
+    <li data-md>
+     <p><strong>Surveillance</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Surveillance observes or monitors an individual’s communications or activities.</p>
+      <li data-md>
+       <p><em>Threat</em>: Although we can semantically link this threat to surveillance of governments (precisely of the _Holder_ or an adversary), we can actually consider surveillance also related to profiling for targeted advertising (and thus from software agents also used to trust the _Holder_) or even of threat actors such as stalkers or similar.</p>
+      <li data-md>
+       <p><em>Mitigations</em></p>
+       <ul>
+        <li data-md>
+         <p>Refer to LINDDUN’s _Linking_, _Identifying_, _Data Disclosure_</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Stored Data Compromise</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: End systems that do not take adequate measures to secure stored data from unauthorized or inappropriate access expose individuals to potential financial, reputational, or physical harm.</p>
+      <li data-md>
+       <p><em>Threat</em>: All actors can be compromised. Therefore, they must be considered, especially in implementing wallets and agents (for the _Holder_), compromising the end-user device and the signature keys of the _Issuer_.</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>Keys must be stored securely and protected from compromise of the device or location where they are contained (e.g., Secure Enclave, Keystore, HSMs).</p>
+        <li data-md>
+         <p>At the Issuer’s organizational level, the Incident Response Plan must include what to do in case of compromise of <a href="https://www.wionews.com/world/eus-green-pass-hacked-adolf-hitlers-covid-certificate-doing-rounds-online-report-424736">private keys</a> or <a href="https://ria.ee/en/news/2011-researchers-identified-security-vulnerability-id-card-used-estonia">underlying device technology</a>.</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Intrusion</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>:  Intrusion consists of invasive acts that disturb or interrupt one’s life or activities.  Intrusion can thwart individuals' desires to be left alone, sap their time or attention, or interrupt their activities.  This threat is focused on intrusion into one’s life rather than direct intrusion into one’s communications.</p>
+      <li data-md>
+       <p><em>Threat</em>: Intrusive and multiple data requests by _Verifier_</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>Refer to LINDDUN’s _Linking_, _Identifying_, _Data Disclosure_</p>
+        <li data-md>
+         <p>Implement time-based throttling to requests</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Misattribution</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>:  Misattribution occurs when data or communications related to one individual are attributed to another.</p>
+      <li data-md>
+       <p><em>Threat</em>: Incorrect issuance or verification of credentials.</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>Refer to LINDDUN’s _Non-Reputiation_</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Correlation</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Correlation is the combination of various information related to an individual, or that obtains that characteristic when combined.</p>
+      <li data-md>
+       <p><em>Threats</em>: Linking multiple credentials or interactions to profile or track a _Holder_. We are linking individuals to the same _Issuer_.</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>Refer to LINDDUN’s _Linking_, _Identifying_, _Data Disclosure_</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Identification</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>:  Identification is linking information to a particular individual to infer an individual’s identity or to allow the inference of an individual’s identity.</p>
+      <li data-md>
+       <p><em>Threats</em>: Verifiers asking more information than necessary during credential verification.</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+      <li data-md>
+       <p>refer to LINDDUN’s _Unawareness &amp; Unintervenability_  and _Identifying_.</p>
+     </ul>
+    <li data-md>
+     <p><strong>Secondary Use</strong> :</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>:  Secondary use is the use of collected information about an individual without the individual’s consent for a purpose different from that for which the information was collected.</p>
+      <li data-md>
+       <p><em>Threat</em>: Unauthorized use of collected information, e.g., for targeted advertising or create profiles, and Abuse of Functionality on collected data</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>Refer to LINDDUN’s _Non-Compliance_.</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Disclosure</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>:  Disclosure is the revelation of information about an individual that affects how others judge the individual.  Disclosure can violate individuals' expectations of the confidentiality of the data they share.</p>
+      <li data-md>
+       <p><em>Threat</em>: A _Verifier_ that asks for more data than needed.</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>Refer to LINDDUN’s _Data Disclosure_</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Exclusion</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>:  Exclusion is the failure to let individuals know about the data that others have about them and participate in its handling and use.  Exclusion reduces accountability on the part of entities that maintain information about people and creates a sense of vulnerability about individuals' ability to control how information about them is collected and used.</p>
+      <li data-md>
+       <p><em>Threats</em>: Lack of transparency in using the data provided.</p>
+      <li data-md>
+       <p><em>Mitigations</em>;</p>
+       <ul>
+        <li data-md>
+         <p>Refer to LINDUNN’s _Unawareness &amp; Unintervenability_.</p>
+       </ul>
+     </ul>
+   </ul>
+   <h5 class="heading settled" data-level="2.2.3.4" id="rfc-3552-attacks"><span class="secno">2.2.3.4. </span><span class="content">RFC 3552 (Attacks)</span><a class="self-link" href="#rfc-3552-attacks"></a></h5>
+   <ul>
+    <li data-md>
+     <p><strong>Passive Attacks</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>:  In a passive attack, the attacker reads packets off the network but does not write them, which can bring Confidentiality Violations, Password Sniffing, and Offline Cryptographic Attacks.</p>
+      <li data-md>
+       <p>Mitigations:</p>
+       <ul>
+        <li data-md>
+         <p>Encrypt Traffic.</p>
+        <li data-md>
+         <p>Use Quantum-Resistant Algorithms.</p>
+        <li data-md>
+         <p>Use Key Management practices to rotate keys.</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Active Attacks</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: When an attack involves writing data to the network. This can bring Replay Attacks (e.g., recording the message and resending it), Message Insertion (e.g., forging a message and injecting it into the network), Message Deletion (e.g., removing a legit message from the network), Message Modification (e.g., copying the message, deleting the original one, modifying the copied message reinjecting it into the flow), Man-In-The-Middle (e.g., combination of all the previous attacks).</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+      <li data-md>
+       <p>Use a nonce to prevent replay attacks</p>
+      <li data-md>
+       <p>Use Message Authentication Codes/Digital Signatures for message integrity and authenticity</p>
+      <li data-md>
+       <p>Use a specific field to bind the request to a specific interaction between the Issuer, Verifier, and Issuer to Holder.</p>
+       <ul>
+        <li data-md>
+         <p>Encrypt Traffic.</p>
+        <li data-md>
+         <p>Use Quantum-Resistant Algorithms.</p>
+       </ul>
+     </ul>
+   </ul>
+   <h5 class="heading settled" data-level="2.2.3.5" id="stride-threats"><span class="secno">2.2.3.5. </span><span class="content">STRIDE (Threats)</span><a class="self-link" href="#stride-threats"></a></h5>
+   <ul>
+    <li data-md>
+     <p><strong>Spoofing</strong> (Threats to Authentication):</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Pretending to be something or someone other than yourself.</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+      <li data-md>
+       <p>Implement Digital Signatures</p>
+      <li data-md>
+       <p>During the presentation, Indicate proper messages for identifying the _Verifier_ to limit Phishing Attacks.</p>
+      <li data-md>
+       <p>During issuing, use proper LOAs depending on the issued credentials.</p>
+     </ul>
+    <li data-md>
+     <p><strong>Tampering</strong> (Threats to Integrity):</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Modifying something on disk, network, memory, or elsewhere.</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>Implement Digital Signatures in transit and at rest.</p>
+        <li data-md>
+         <p>Implement a nonce for anti-reply attacks.</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Repudiation</strong> (Threats to Non-Repudiation):</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Claiming that you didn’t do something or were not responsible can be honest or false</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>refer to LINDDUN’s _Non-Repudiation_</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Information disclosure</strong> (Threat to Confidentiality and Privacy):</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Confidentiality	Someone obtaining information they are not authorized to access</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+      <li data-md>
+       <p>refer to LINDDUN _Data Disclosure_</p>
+     </ul>
+    <li data-md>
+     <p><strong>Denial of service</strong> (Threats to Availability and Continuity):</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Exhausting resources needed to provide service</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>Use a decentralized VRP for verification or other techniques to guarantee Business Continuity.</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p><strong>Elevation of privilege</strong> (Threats to Authorization):</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Allowing someone to do something they are not authorized to do</p>
+      <li data-md>
+       <p><em>Mitigations</em>:</p>
+       <ul>
+        <li data-md>
+         <p>During issuing, use proper LOAs depending on the issued credentials.</p>
+       </ul>
+     </ul>
+   </ul>
+   <h5 class="heading settled" data-level="2.2.3.6" id="osstmm-controls"><span class="secno">2.2.3.6. </span><span class="content">OSSTMM (Controls)</span><a class="self-link" href="#osstmm-controls"></a></h5>
+   <ul>
+    <li data-md>
+     <p><strong>Visibility</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Police science places “opportunity” as one of the three elements that encourage theft, along with “benefit” and “diminished risk.” visibility is a means of calculating opportunity. It is each target’s asset known to exist within the scope. Unknown assets are only in danger of being discovered as opposed to being in danger of being targeted.</p>
+      <li data-md>
+       <p><em>Analysis</em>: In the specific case of (request for) submission, the visibility of a specific wallet credential or assertion should be limited as much as possible when the website requests it. The whole thing must be handled at the user-agent level—or even better. It has to be hidden from it and go directly to the Wallet.</p>
+     </ul>
+    <li data-md>
+     <p><strong>Access</strong></p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Access in OSSTMM is precisely when you allow interaction.</p>
+      <li data-md>
+       <p><em>Analysis</em>: In this case, the only way to do this is with the available API subset, which must be a specific request.</p>
+     </ul>
+    <li data-md>
+     <p><strong>Trust</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Trust in OSSTMM is when we leverage an existing trust relationship to interact with the asset. Normally, this involves a "relaxation" of the security controls that otherwise manage the interaction.</p>
+      <li data-md>
+       <p><em>Analysis</em>: This specific case should have no trusted access. However, the whole thing could be triggered when asking permission for powerful features. Consider avoiding or limiting this over time (balancing Trust with Subjugation).</p>
+     </ul>
+    <li data-md>
+     <p><strong>Authentication</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: is control through the challenge of credentials based on identification and authorization.</p>
+      <li data-md>
+       <p><em>Analysis</em>: This can be considered the Trust of the issuers and the signatures (in the OSSTMM definition, Identity, Authentication, and Authorization are collapsed in the Authentication).</p>
+     </ul>
+    <li data-md>
+     <p><strong>Indemnification</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: is a control through a contract between the asset owner and the interacting party. This contract may be a visible warning as a precursor to legal action if posted rules are not followed, specific, public legislative protection, or with a third-party assurance provider in case of damages like an insurance company.</p>
+      <li data-md>
+       <p><em>Analysis</em>: This is the agreement between the interacting parties, such as contracts. In this case, <em>Notifications</em> can describe what happens in a "secure" context (e.g., Payments API); all operations must be specifically authorized with Informed Consent. The holder must be notified if the Verifier asks for Full Disclosure, if the Issued Credentials do not support Selective Disclosure, or if it is phoning home.</p>
+       <p><em>Note</em>: this can be used as a <a href="https://en.wikipedia.org/wiki/Nudge_theory">nudge</a> (used in Behavioural Economics) and then can be used to educate the Verifiers, Holders, and Issuers to do the right thing.*</p>
+     </ul>
+    <li data-md>
+     <p><strong>Resilience</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: Control all interactions to protect assets in the event of corruption or failure.</p>
+      <li data-md>
+       <p><em>Analysis</em>: In this context, it means failing securely, which can be considered a failure in the case of cryptographic problems.</p>
+     </ul>
+    <li data-md>
+     <p><strong>Subjugation</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: It is a control that assures that interactions occur only according to defined processes. The asset owner defines how the interaction occurs, which removes the interacting party’s freedom of choice and liability for loss.</p>
+      <li data-md>
+       <p><em>Analysis</em>: This is a particularly interesting aspect based on the context. As mentioned earlier, one would need to make sure that one is always asked for the minimum information, if and when available (e.g., priority to Predicates Proof, then to Selective Disclosure, bad the whole credential), somewhat like what happens on SSL/TLS with the ciphers.</p>
+     </ul>
+    <li data-md>
+     <p><strong>Continuity</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: controls all interactions to maintain <em>interactivity</em> with assets in the event of corruption or failure.</p>
+      <li data-md>
+       <p><em>Analysis</em>: This is the concept of continuity balancing in case of problems, although in this case, if there are problems, it’s the case to terminate the interaction. But in general terms, for the Holder, there is the need for a secure backup.</p>
+     </ul>
+    <li data-md>
+     <p><strong>Non-Repudiation</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>:  is a control that prevents the interacting party from denying its role in any interactivity.</p>
+      <li data-md>
+       <p><em>Analysis</em>: The issue of non-repudiation is interesting, and it makes me think about the logging issue, where it should be done, by whom, and how. It requires a strong trust element. Still, in general, it’s useful for the Holder to have the log of what happened and probably the Verifier as well (e.g., in case of checks of having given access to a certain service by those who had the right to do so having presented a credential, but what to keep considering privacy as well)?</p>
+     </ul>
+    <li data-md>
+     <p><strong>Confidentiality</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: is a control for assuring an asset displayed or exchanged between interacting parties cannot be known outside of those parties.</p>
+      <li data-md>
+       <p><em>Analysis</em>: One of cryptography’s important aspects is how effectively it can guarantee confidentiality. A point can be post-quantum cryptography (PQC) readiness. A countermeasure is limiting a credential’s lifetime and re-issuing it with a more secure cryptosuite.</p>
+     </ul>
+    <li data-md>
+     <p><strong>Privacy</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>:  is a control for assuring the means of how an asset is accessed, displayed, or exchanged between parties cannot be known outside of those parties.</p>
+      <li data-md>
+       <p><em>Analysis</em>: mainly unlinkability and minimization, as described before. In the context of the Digital Credentials API, this also includes preventing third parties from unnecessarily learning anything about the end-user’s environment (e.g., which wallets are available, their brand, and their capabilities).</p>
+     </ul>
+    <li data-md>
+     <p><strong>Integrity</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: It is a control to ensure that interacting parties know when assets and processes have changed.</p>
+      <li data-md>
+       <p><em>Analysis</em>: The credential and its presentation to be verified must be cryptographically signed.</p>
+     </ul>
+    <li data-md>
+     <p><strong>Alarm</strong>:</p>
+     <ul>
+      <li data-md>
+       <p><em>Description</em>: is a control to notify that an interaction is occurring or has occurred.</p>
+      <li data-md>
+       <p><em>Analysis</em>: It is important to notify users and then allow when an interaction happens, particularly when it has low values related to the Unlinkabiity Scale or Minimization Scale; this can happen for several reasons. For example, the Issuer uses a technology that "calls home," or the Verifier asks for data that could be minimized instead.</p>
+     </ul>
+   </ul>
+   <h5 class="heading settled" data-level="2.2.3.7" id="responsible-innovation-harms"><span class="secno">2.2.3.7. </span><span class="content">Responsible Innovation (Harms)</span><a class="self-link" href="#responsible-innovation-harms"></a></h5>
+   <ul>
+    <li data-md>
+     <p><strong>Opportunity loss</strong> (_Discrimination_): This complex issue spans multiple areas. Digital divide: if digital identities are required for access to public services and no alternatives are present, and if they depend on certain hardware, software, or stable connectivity, it can lead to discrimination for people who do not have availability of these resources. In addition to discrimination within the same country, there is further discrimination if there is no “cross-border” interoperability between the technologies and implementations used by different governments.</p>
+    <li data-md>
+     <p><strong>Economic loss</strong> (_Discrimination_): the availability of digital identities and related credentials, which can contain a lot of information regarding wealth status, can be used to discriminate against access to credit. This can also be generalized - as was identified during a W3C breakout session concerns the Javons paradox. The more information available in this mode, the more likely it is that collection, particularly in greedy data-driven contexts, is abused.</p>
+    <li data-md>
+     <p><strong>Dignity loss</strong> (_Dehumanization_): For example, if the vocabulary does not correctly describe people’s characteristics, this can reduce or obscure people’s humanity and characteristics.</p>
+    <li data-md>
+     <p><strong>Privacy Loss</strong> (_Surveillance_): if this technology is not designed and implemented properly, it can lead to surveillance by state and non-state actors such as government and private technology providers. For example, centralized or federated models are more prone to these threats, while decentralized models are less so, but it depends on how they are implemented. Therefore, it is necessary to provide privacy-preserving technologies and implement them properly.</p>
+   </ul>
+   <h4 class="heading settled" data-level="2.2.4" id="other-threats-and-harms"><span class="secno">2.2.4. </span><span class="content">Other Threats and Harms</span><a class="self-link" href="#other-threats-and-harms"></a></h4>
+   <p>Considering the specific case of government credentials issued to people, it is useful to think about some use cases:</p>
+   <ul>
+    <li data-md>
+     <p>In some countries, at-risk workers who are taken abroad have their passports seized by those who exploit them so that they can be controlled. Digital Credentials can generally mitigate this as being intangible; they can be regenerated in case of theft. A further consideration is how the threat agent will act when faced with this situation and what mitigations (more process than merely technical) governments can implement.</p>
+    <li data-md>
+     <p>Normally, we assume that the _Holder_ of the credential is also the _Subject_ to whom the credential refers.  This is not necessarily the case.</p>
+    <li data-md>
+     <p>One particularly useful and interesting aspect is the delegation of a credential (we use the term delegation loosely, as questions such as Guardianship have a precise legal meaning). This prevents abuse and identity theft and should be modeled properly as Issuer rules on the upper layers of the architecture.</p>
+    <li data-md>
+     <p>Also, delegation could be a crucial feature if the government generates a credential at the organizational level, which is then used by legal representatives (who are people).</p>
+   </ul>
+   <p>Another scenario is the use of a credential for authentication:</p>
+   <ul>
+    <li data-md>
+     <p>In contrast to what can happen with credentials in other identity models, where credentials are used primarily for authentication, it can be risky to use a credential issued by an issuer to authenticate to a service that is not under the control of the issuer, as a malicious issuer could generate a parallel ad-hoc credential to authenticate. For example, it may not be a good idea to log into your personal e-mail with a government-issued credential such as a passport.</p>
+   </ul>
+   <p>Other threats that <a href="https://github.com/w3c/identity-web-impact/issues/29#issuecomment-2309436586">must be considered</a>:</p>
+   <ul>
+    <li data-md>
+     <p>Identity leakage</p>
+    <li data-md>
+     <p>Identity impersonation</p>
+   </ul>
+   <h3 class="heading settled" data-level="2.3" id="what-are-we-going-to-do-about-it"><span class="secno">2.3. </span><span class="content">What are we going to do about it?</span><a class="self-link" href="#what-are-we-going-to-do-about-it"></a></h3>
+   <p>Countermeasures/Features:</p>
+   <ul>
+    <li data-md>
+     <p>**<a href="http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF">Blinded Signature</a>**:  is a type of digital signature for which the content of the message is concealed before it is signed. With Public-Private Key Cryptography, the signature can be correlated with who signed it, specifically to their public key (and this is an important feature if we think about when we want to be sure of the sender when using GPG). Zero-knowledge cryptographic methods do not reveal the actual signature. Instead, with ZKP, we can send cryptographic proof of signature without providing the verifier with any other information about who signed. Thus protecting the public key of the holder.</p>
+    <li data-md>
+     <p>**<a href="http://www.links.org/files/selective-disclosure.pdf">Selective disclosure</a>**:  is the ability to show only a part (claim) of the credential and not all of it or show only possession of that credential. as needed in the context of the transaction. For example, we can show only the date of birth rather than the entire driver’s license where it is contained. This allows us to minimize the data sent to the verifier further.</p>
+    <li data-md>
+     <p>**<a href="https://arxiv.org/pdf/2401.08196">Predicate Proofs and Range Proof</a>**: is the ability to respond to a boolean assertion (true-false) to a specific request, and it is an additional step for privacy and minimization. For example, if we say we are of age, I don’t have to show just the date of birth but compute the answer.</p>
+    <li data-md>
+     <p><strong>Anonymous Revocation</strong>: A credential has its life cycle: it is issued, it is used, and then it can be revoked for various reasons. Therefore, a verifier must be able to verify whether the credential has been revoked, but this must be done without allowing the ability to correlate information about other revoked credentials. There are different Techniques:</p>
+     <ul>
+      <li data-md>
+       <p><strong>Revocation List</strong>: This is the current generally used approach, although it creates privacy issues, as the lists must be public and typically contain user information.</p>
+     </ul>
+    <li data-md>
+     <p><a href="https://www.w3.org/community/reports/credentials/CG-FINAL-vc-status-list-2021-20230102/">**Status List**</a>: revocation document only contains flipped bits at positions that can only be tied to a given credential if you’d been privy to the disclosure of their association.</p>
+    <li data-md>
+     <p><a href="https://datatracker.ietf.org/doc/html/draft-demarco-oauth-status-assertions">**Status Assertions**</a>: is a signed object that demonstrates the validity status of a digital credential. These assertions are periodically provided to holders, who can present these to the verifier along with the corresponding digital credentials.</p>
+    <li data-md>
+     <p>**<a href="https://eprint.iacr.org/2024/657.pdf">Cryptographic accumulators</a>*<em>: can generate proof of validity *</em>*<a href="https://ieeexplore.ieee.org/document/10237019">without exposing other information</a>***.</p>
+    <li data-md>
+     <p><strong>Rotational Identifiers</strong>: As indicated by the <a href="https://www.w3.org/TR/security-privacy-questionnaire/#temporary-id">Security and Privacy Questionnaire</a>, identifiers can be used to correlate, so it is important that they are temporary as much as possible during a session and changed after they are used. In this context, the identifiers that can be exploited to correlate can be present at different levels.</p>
+    <li data-md>
+     <p><strong>No Phoning home or back-channel communication</strong>: Software often "calls home" for several reasons. They normally do this to collect usage or crash statistics (which could indicate a vulnerability). The problem is that this feature, often critical to software improvement and security, has privacy implications for the user, in this case, the _Holder_. At the Credentials level, this call can be made at different times and by different _agents_. For example, suppose the _Issuer_ is contacted by the _Verifier_ to check the revocation of a credential, or the _Wallet_ can contact its vendor to collect usage statistics. In that case, we can consider two types of countermeasures:</p>
+    <li data-md>
+     <p><strong>Do not phone home or back-channel communication</strong>: This could also be an operational necessity (several use cases require the presentation to be made in offline environments or with limited connection) or a choice of the _Holder_, who should always _consent_ to telemetry and external connections to third-parties.</p>
+    <li data-md>
+     <p><strong>Minimize and Anonymize the Data</strong>: Limit the data passed or, even better, cryptographic privacy-preserving techniques like <a href="https://arxiv.org/pdf/2109.10074">STAR</a> that implements <a href="https://dataprivacylab.org/dataprivacy/projects/kanonymity/paper3.pdf">k-anonymity</a> for telemetry.</p>
+    <li data-md>
+     <p><strong>Using Privacy-Preserving DIDs</strong>: When resolving a DID, it is possible that the method uses a connection to a system for resolution. If this system is under the direct or indirect control of the _Issuer_, generating potential privacy issues. For example, this typically happens with <code>did:web</code> <a href="https://w3c-ccg.github.io/did-method-web/#read-resolve">as mentioned in section 2.5.2</a> where a GET is generated that retrieves a file, effectively exposing the requesting user agent and allowing the _Issuer_ to make statistics.</p>
+    <li data-md>
+     <p><strong>Notification/Alerts</strong>: An important aspect, particularly about interactions where the user is required to interact through an Internet credential, is communication with the user, which occurs at the following times</p>
+    <li data-md>
+     <p>Before the request for the proof: for example, a website requests age verification, permission must first be given to the website to access the functionality, and when the user decides whether or not to give access, the URL and type of credential requested and the level of Minimization (to discourage you know the Verifier and the Holder from using Full Disclosure) must be indicated in a secure context.</p>
+    <li data-md>
+     <p>Before sending the proof, the user selects the Wallet of his choice, the credential or set of credentials from the wallet, and the specific claims from the credentials. The Holder must be notified and asked for confirmation and consent, particularly when the type of presentation he proposes has <strong>phone calling</strong> or <strong>back-channel communication</strong> features (to discourage the _Issuer_ and _Verifier_ from these practices).</p>
+   </ul>
+  </main>
+  <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
