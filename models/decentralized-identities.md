@@ -86,7 +86,7 @@ To begin to create a good Threat Model, we can first consider the components of 
 - We have a *Holder* who, inside a _Wallet_, has its credentials.
 - We have an *Issuer* who issues the credentials to the *Holder* and manages the revocation.
 - We have a *Verifier* who verifies the Holder's credentials to give access to a resource or a service.
-- We also have a *Verifiable Data Registry* (VRP) that stores identifiers and schemas.
+- We also have a *Verifiable Data Registry* (VDR) that stores identifiers and schemas.
 
 <img src="https://www.w3.org/TR/vc-data-model-2.0/diagrams/ecosystem.svg">
 
