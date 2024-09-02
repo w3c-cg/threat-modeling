@@ -77,7 +77,7 @@ Although different digital credentials may have a different channel/vector (e.g.
 
 # Analysis
 
-## What are we building?
+## What are we working on?
 
 To begin to create a good Threat Model, we can first consider the components of the Decentralized Identity architecture (which in this context is synonymous with Self-Sovereign Identity) as defined in [W3C's Verifiable Credentials Data Model](https://www.w3.org/TR/vc-data-model-2.0/) and how they interact.
 
