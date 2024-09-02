@@ -96,12 +96,12 @@ Interactions between actors occur normatively through software or other technolo
 
 We can consider three general flows, with four "ceremonies" where the various actors interact.
 - Credential-Issuing
-- Credential-Presentation and Credential Verification
+- Credential-Presentation and Credential-Verification
 - Credential Revocation
 
 It is important to note that the flow stops here and can be safely continued in several ways. For example, the _Holder_ receives credentials from an _Issuer_ and uses them to identify themself on a _Verifier_ to buy a physical object or ticket to an event. So the _Verifier_ could become an _Issuer_ to issue a certificate of authenticity for good or issue the ticket directly into the _Holder's_ Wallet.
 
-* **Credential Issuing (CI):**
+* **Credential-Issuing (CI):**
     1. The *Issuer* requests a certain authentication mechanism from the *Holder*.
     2. After authentication, the *Holder* asks the *Issuer* for the credential or the *Issuer* submits it.
     4. If both parties agree, the *Issuer* sends the credential to the Holder in a specific format.
