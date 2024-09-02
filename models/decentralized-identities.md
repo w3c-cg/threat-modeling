@@ -389,7 +389,7 @@ One effective though inefficient approach to threat modeling is to cycle the var
 - **Denial of service** (Threats to Availability and Continuity):
   - *Description*: Exhausting resources needed to provide service
   - *Mitigations*:
-    - Use a decentralized VRP for verification
+    - Use a decentralized VDR for verification
     
   - **Elevation of privilege**  (Threats to Authorization): 
     - *Description*: Allowing someone to do something they are not authorized to do
