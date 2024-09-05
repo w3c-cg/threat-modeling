@@ -224,7 +224,7 @@ One effective though inefficient approach to threat modeling is to cycle the var
     
  - **Unlinkable**:
    - *Description*: If the relying party or parties, or other actors in the system, can, either on their own or in collusion, link together my various assertions, then I’ve blown the minimality requirement out of the water.
-   - *Analysis*: It must be minimal. It should not be possible to map the issuer (Blind Signature), contact them to know if the credential has been revoked (e.g., Revocation via Cryptographic Accumulation), or use revocation lists that expose the list of credentials. Generally, if an identifier can be exploited to link identities, it should rotate (Rotational Identifiers), as with PAN numbers using Apple Pay.
+   - *Analysis*: It must be minimal. It should not be possible to map the signer (Signature Blinding), contact them to know if the credential has been revoked (e.g., Revocation via Cryptographic Accumulation), or use revocation lists that expose the list of credentials. Generally, if an identifier can be exploited to link identities, it should rotate (Rotational Identifiers), as with PAN numbers using Apple Pay.
 
 #### LINDDUN (Threats)
 
@@ -232,7 +232,7 @@ One effective though inefficient approach to threat modeling is to cycle the var
   - *Description*: Learning more about an individual or a group by associating data items or user actions. Linking may lead to unwanted privacy implications, even if it does not reveal one's identity.
   - *Threat*: We are generally driven to think of this as a threat to the Holder and linking its attributes, but per se, even an _Issuer_ can have the problem of tracking its users. This applies to a _Verifier_ (or a group of Verifiers) and an external third party observing the various exchanges or any Revocation list.
   - *Mitigations*:
-    - Use Blinded Signatures.
+    - Use Signature Blinding.
     The _Verifier_ should request the following: Range Proof, Predicate Proof, Selective Disclosure, and the credential.
     - The _Issuer_ should use an anonymous revocation method such as Cryptographic Accumulators.
     - The _Issuer_ should use random identifiers when generating the credential.
@@ -484,7 +484,7 @@ Other threats that [must be considered](https://github.com/w3c/identity-web-impa
 ## What are we going to do about it?
 
 Countermeasures/Features:
-- **[Blinded Signature](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)**:  is a type of digital signature for which the content of the message is concealed before it is signed. With Public-Private Key Cryptography, the signature can be correlated with who signed it, specifically to their public key (and this is an important feature if we think about when we want to be sure of the sender when using GPG). Zero-knowledge cryptographic methods do not reveal the actual signature. Instead, with ZKP, we can send cryptographic proof of signature without providing the verifier with any other information about who signed. Thus protecting the public key of the holder.
+- **[Signature Blinding](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)**:  is a type of digital signature for which the content of the message is concealed before it is signed. With Public-Private Key Cryptography, the signature can be correlated with who signed it, specifically to their public key (and this is an important feature if we think about when we want to be sure of the sender when using GPG). Zero-knowledge cryptographic methods do not reveal the actual signature. Instead, with ZKP, we can send cryptographic proof of signature without providing the verifier with any other information about who signed. Thus protecting the public key of the holder.
 - **[Selective disclosure](http://www.links.org/files/selective-disclosure.pdf)**:  is the ability to show only a part (claim) of the credential and not all of it or show only possession of that credential. as needed in the context of the transaction. For example, we can show only the date of birth rather than the entire driver's license where it is contained. This allows us to minimize the data sent to the verifier further.
 - **[Predicate Proofs and Range Proof](https://arxiv.org/pdf/2401.08196)**: is the ability to respond to a boolean assertion (true-false) to a specific request, and it is an additional step for privacy and minimization. For example, if we say we are of age, I don't have to show just the date of birth but compute the answer.
 - **Anonymous Revocation**: A credential has its life cycle: it is issued, it is used, and then it can be revoked for various reasons. Therefore, a verifier must be able to verify whether the credential has been revoked, but this must be done without allowing the ability to correlate information about other revoked credentials. There are different Techniques:
