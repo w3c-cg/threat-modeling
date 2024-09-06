@@ -265,9 +265,9 @@ One effective though inefficient approach to threat modeling is to cycle the var
   - *Description*: Data disclosure threats represent cases in which disclosures of personal data to, within, and from the system are considered problematic.
   - *Threat*: The threat will be disclosed during presentation and verification. 
    - *Mitigations*:
-      The _Verifier_ should request the following: Range Proof, Predicate Proof, Selective Disclosure, and the credential.
+      - The _Verifier_ should request the following: Range Proof, Predicate Proof, Selective Disclosure, and the credential.
       - The _Issuer_ and the _Holder_ must not write personally identifiable information (PII) or linkable identifiers in the _VDR_.
-       - The _Issuer_ should use an anonymous revocation method.
+      - The _Issuer_ should use an anonymous revocation method.
 
 - **Unawareness & Unintervenability**:
 
@@ -275,8 +275,8 @@ One effective though inefficient approach to threat modeling is to cycle the var
   - *Threat*: For the _Holder_, unaware of how their credentials are used or shared.
   - *Mitigations*:
        - The _Holder_ must be informed when a _Verifier_ asks for the credential's Full Disclosure or Selected Disclosure.
-        - The _Holder_ must be informed when their credentials is _Phoning Home_ or possible _back-channel connections_
-           The _Holder_ must consent to each use of their credential and must identify the Verifier, the Proof Requested (at the moment of request), and which credentials and information are shared with the Verifier after the selection. 
+       - The _Holder_ must be informed when their credentials is _Phoning Home_ or possible _back-channel connections_
+       - The _Holder_ must consent to each use of their credential and must identify the Verifier, the Proof Requested (at the moment of request), and which credentials and information are shared with the Verifier after the selection. 
   
 - **Non-Compliance**:
   - *Description*: Non-compliance threats arise when the system deviates from legislation, regulation, standards, and best practices, leading to incomplete risk management.
