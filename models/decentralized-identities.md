@@ -10,7 +10,9 @@ Editor: Simone Onofri (W3C) simone@w3.org
 
 ## Scope
 
-The topic of Digital Identities is vast and intricate. Defining the initial scope of the model, which can be expanded when necessary, if we consider the ecosystem of Digital Identities, we find ourselves in the specific case of Decentralized Identities, those identities related to people and in particular those considered high-assurance (e.g., those issued by governments) and in the **Layer 3: "Credentials" and precisely the *Credential-Presentation phase*** - as defined by the [SSI Technology Stack from ToITP](https://trustoverip.org/toip-model/) and [DIF FAQ](https://identity.foundation/faq/).
+The topic of Digital Identities is vast and intricate. Defining the initial scope of the model, which can be expanded when necessary, if we consider the ecosystem of Digital Identities, we find ourselves in the specific case of Decentralized Identities, those identities related to people and in particular those considered high-assurance (e.g., those issued by governments) and in the **Layer 3: "Credentials" and precisely the *Credential-Presentation Phase*** - as defined by the [SSI Technology Stack from ToITP](https://trustoverip.org/toip-model/) and [DIF FAQ](https://identity.foundation/faq/) and as written in the [Identity & the Web Report](https://www.w3.org/reports/identity-web-impact/#trust-layer):
+
+<img src=https://www.w3.org/reports/identity-web-impact/figures/decentralized-identity-layers.svg"/>
 
 On the one hand, the need arose within the W3C about the potential adoption of the [Digital Credentials API](https://wicg.github.io/digital-credentials/) - which would allow User-Agents to mediate communication between a website requiring the submission of evidence and the user's Wallet - by the [Federated Identity Working Group](https://github.com/w3c/strategy/issues/450), on the other hand the lack of a more general model analyzing threats on the various levels related to Security, Privacy, and Human Rights was also identified.
 
@@ -88,7 +90,7 @@ To begin to create a good Threat Model, we can first consider the components of 
 - We have a *Verifier* who verifies the Holder's credentials to give access to a resource or a service.
 - We also have a *Verifiable Data Registry* (VDR) that stores identifiers and schemas.
 
-<img src="https://www.w3.org/TR/vc-data-model-2.0/diagrams/ecosystem.svg">
+<img src="https://www.w3.org/reports/identity-web-impact/figures/decentralized-identity-model.svg">
 
 Interactions between actors occur normatively through software or other technological mediums. We will generically call *Agents* such components. One agent might be embedded in a *Wallet* (the component that contains the *Holder's* credentials), and another might be a Browser (which, by definition, is a user agent).
 
