@@ -12,7 +12,7 @@ Editor: Simone Onofri (W3C) simone@w3.org
 
 The topic of Digital Identities is vast and intricate. Defining the initial scope of the model, which can be expanded when necessary, if we consider the ecosystem of Digital Identities, we find ourselves in the specific case of Decentralized Identities, those identities related to people and in particular those considered high-assurance (e.g., those issued by governments) and in the **Layer 3: "Credentials" and precisely the *Credential-Presentation Phase*** - as defined by the [SSI Technology Stack from ToITP](https://trustoverip.org/toip-model/) and [DIF FAQ](https://identity.foundation/faq/) and as written in the [Identity & the Web Report](https://www.w3.org/reports/identity-web-impact/#trust-layer):
 
-<img src=https://www.w3.org/reports/identity-web-impact/figures/decentralized-identity-layers.svg"/>
+<img src="https://www.w3.org/reports/identity-web-impact/figures/decentralized-identity-layers.svg"/>
 
 On the one hand, the need arose within the W3C about the potential adoption of the [Digital Credentials API](https://wicg.github.io/digital-credentials/) - which would allow User-Agents to mediate communication between a website requiring the submission of evidence and the user's Wallet - by the [Federated Identity Working Group](https://github.com/w3c/strategy/issues/450), on the other hand the lack of a more general model analyzing threats on the various levels related to Security, Privacy, and Human Rights was also identified.
 
