@@ -165,7 +165,7 @@ Assuming that the main asset is the credential and information derived during it
 
 These properties were defined in a very specific case of Decentralized Identities. Those related to people, and even more specifically, those issued by governments, are based on the concept of Privacy, specifically for the protection of the Holder.
 
-While we can, therefore, consider the *Minimal* and _Unlinkable_ properties as elements of the _Holder_, the _Verifiable_ property is of interest to all. Verifiable means that the _Verifier_ can confirm who issued the credential, that it has not been tampered with, expired, or revoked, contains the required data and is possibly associated with the holder.
+While we can, therefore, consider the *Minimal* and _Unlinkable_ properties as elements of the _Holder_, the _Verifiable_ property is of interest to all. Verifiable means that the _Verifier_ can confirm who issued the credential, that it has not been tampered with, expired, or revoked, contains the required data, and is possibly associated with the holder.
 
 Therefore, The Threat Model wants to start from this specific use case, that of government-issued credentials for people, considering that it is one of the most complex.
 
@@ -232,7 +232,7 @@ One effective though inefficient approach to threat modeling is to cycle the var
 
 - **Linking**:
   - *Description*: Learning more about an individual or a group by associating data items or user actions. Linking may lead to unwanted privacy implications, even if it does not reveal one's identity.
-  - *Threat*: We are generally driven to think of this as a threat to the Holder and linking its attributes, but per se, even an _Issuer_ can have the problem of tracking its users. This applies to a _Verifier_ (or a group of Verifiers) and an external third party observing the various exchanges or any Revocation list.
+  - *Threat*: We are generally driven to think of this as a threat to the Holder and linking its attributes, but per se, even an _Issuer_ can have the problem of tracking its users. This applies to a _Verifier_ (or a group of Verifiers) and an external third party observing the various exchanges or Revocation list.
   - *Mitigations*:
     - Use Signature Blinding.
     The _Verifier_ should request the following: Range Proof, Predicate Proof, Selective Disclosure, and the credential.
@@ -449,7 +449,7 @@ One effective though inefficient approach to threat modeling is to cycle the var
 - **Privacy**:
 
   - *Description*:  is a control for assuring the means of how an asset is accessed, displayed, or exchanged between parties cannot be known outside of those parties.
-  - *Analysis*: mainly unlinkability and minimization, as described before. In the context of the Digital Credentials API, this also includes preventing third parties from unnecessarily learning anything about the end-user's environment (e.g., which wallets are available, their brand, and their capabilities).
+  - *Analysis*: mainly unlinkability and minimization, as described before. In the Digital Credentials API context, this also includes preventing third parties from unnecessarily learning anything about the end-user's environment (e.g., which wallets are available, their brand, and their capabilities).
 
 - **Integrity**: 
 
@@ -465,7 +465,7 @@ One effective though inefficient approach to threat modeling is to cycle the var
 
 - **Opportunity loss** (_Discrimination_): This complex issue spans multiple areas. Digital divide: if digital identities are required for access to public services and no alternatives are present, and if they depend on certain hardware, software, or stable connectivity, it can lead to discrimination for people who do not have availability of these resources. In addition to discrimination within the same country, there is further discrimination if there is no “cross-border” interoperability between the technologies and implementations used by different governments.
 - **Economic loss** (_Discrimination_): the availability of digital identities and related credentials, which can contain a lot of information regarding wealth status, can be used to discriminate against access to credit. This can also be generalized - as was identified during a W3C breakout session concerns the Javons paradox. The more information available in this mode, the more likely it is that collection, particularly in greedy data-driven contexts, is abused.
-- **Dignity loss** (_Dehumanization_): For example, if the vocabulary does not correctly describe people's characteristics, this can reduce or obscure people's humanity and characteristics.
+- **Dignity loss** (_Dehumanization_): If the vocabulary does not correctly describe people's characteristics, this can reduce or obscure their humanity and characteristics.
 - **Privacy Loss** (_Surveillance_): if this technology is not designed and implemented properly, it can lead to surveillance by state and non-state actors such as government and private technology providers. For example, centralized or federated models are more prone to these threats, while decentralized models are less so, but it depends on how they are implemented. Therefore, it is necessary to provide privacy-preserving technologies and implement them properly.
 
 ### Other Threats and Harms
@@ -492,7 +492,7 @@ Countermeasures/Features:
 - **Anonymous Revocation**: A credential has its life cycle: it is issued, it is used, and then it can be revoked for various reasons. Therefore, a verifier must be able to verify whether the credential has been revoked, but this must be done without allowing the ability to correlate information about other revoked credentials. There are different Techniques:
     - **Revocation List**: This is the current generally used approach, although it creates privacy issues, as the lists must be public and typically contain user information.
    - [**Status List**](https://www.w3.org/community/reports/credentials/CG-FINAL-vc-status-list-2021-20230102/): revocation document only contains flipped bits at positions that can only be tied to a given credential if you'd been privy to the disclosure of their association.
-   - [**Status Assertions**](https://datatracker.ietf.org/doc/html/draft-demarco-oauth-status-assertions): is a signed object that demonstrates the validity status of a digital credential. These assertions are periodically provided to holders, who can present these to the verifier along with the corresponding digital credentials.
+   - [**Status Assertions**](https://datatracker.ietf.org/doc/html/draft-demarco-oauth-status-assertions): is a signed object that demonstrates the validity status of a digital credential. These assertions are periodically provided to holders, who can present these to the verifier and the corresponding digital credentials.
    - **[Cryptographic accumulators](https://eprint.iacr.org/2024/657.pdf)**: can generate proof of validity ***[without exposing other information](https://ieeexplore.ieee.org/document/10237019)***.
 - **Rotational Identifiers**: As indicated by the [Security and Privacy Questionnaire](https://www.w3.org/TR/security-privacy-questionnaire/#temporary-id), identifiers can be used to correlate, so it is important that they are temporary as much as possible during a session and changed after they are used. In this context, the identifiers that can be exploited to correlate can be present at different levels.
 - **No Phoning home or back-channel communication**: Software often "calls home" for several reasons. They normally do this to collect usage or crash statistics (which could indicate a vulnerability). The problem is that this feature, often critical to software improvement and security, has privacy implications for the user, in this case, the _Holder_. At the Credentials level, this call can be made at different times and by different _agents_. For example, suppose the _Issuer_ is contacted by the _Verifier_ to check the revocation of a credential, or the _Wallet_ can contact its vendor to collect usage statistics. In that case, we can consider two types of countermeasures:
