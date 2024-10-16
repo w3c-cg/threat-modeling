@@ -42,7 +42,6 @@ See the Feature: [Incorporating navigation initiator into the HTTP cache partiti
 and [the slide deck](https://docs.google.com/presentation/d/1StMrI1hNSw_QSmR7bg0w3WcIoYnYIt5K8G2fG01O0IA/edit#slide=id.g2f87bb2d5eb_0_4)
 ## Mitigations
 
-
 **AI Isolation**
 
 Only AI that has no interaction with the device holder may be accessed by any user agent that hosts pages from a web site that is not fully trusted by the holder or device owner. Specifically, the impact of the prompts entered by an origin site should not be able to impact either the holder or other origin site’s interactions with the holder.
