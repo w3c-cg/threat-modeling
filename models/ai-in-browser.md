@@ -2,7 +2,7 @@
 
 Artificial Intelligence (aka LLM) is getting added to everything, including the Web Browser, which will have some severe unanticipated downside for the user. 
 
-Contributor: Tom Jones 2024-09-27 
+Contributor: Tom Jones 2024-10-09 
 
 ## Context
 
@@ -34,7 +34,14 @@ Given that the web is a fully open network, zero day vulnerabilities can be full
 
 The supply chain that can be attacked includes the AI (LLM) module within the device. It is assumed that there may be multiple AI modules in the future, some of uncertain provenance.  It is not at all clear why the browser API should trust the LLM provided.
 
+**Cross-Site Attacks**
+
+There is a current set of vulnerabilities for caching today that are being addressed by mitigations described in the feature listed below. Any cross-site vulnerability found there could equally apply to shared use of a user’s local AI not only within the browser but by any other app on the user’s device.
+
+See the Feature: [Incorporating navigation initiator into the HTTP cache partition key](https://chromestatus.com/feature/5190577638080512) 
+and [the slide deck](https://docs.google.com/presentation/d/1StMrI1hNSw_QSmR7bg0w3WcIoYnYIt5K8G2fG01O0IA/edit#slide=id.g2f87bb2d5eb_0_4)
 ## Mitigations
+
 
 **AI Isolation**
 
