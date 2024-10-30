@@ -470,18 +470,30 @@ One effective though inefficient approach to threat modeling is to cycle the var
 
 ### Other Threats and Harms
 
+#### Government-issued credentials
+
 Considering the specific case of government credentials issued to people, it is useful to think about some use cases:
 - In some countries, at-risk workers who are taken abroad have their passports seized by those who exploit them so that they can be controlled. Digital Credentials can generally mitigate this as being intangible; they can be regenerated in case of theft. A further consideration is how the threat agent will act when faced with this situation and what mitigations (more process than merely technical) governments can implement.
 - Normally, we assume that the _Holder_ of the credential is also the _Subject_ to whom the credential refers.  This is not necessarily the case.
   - One particularly useful and interesting aspect is the delegation of a credential (we use the term delegation loosely, as questions such as Guardianship have a precise legal meaning). This prevents abuse and identity theft and should be modeled properly as Issuer rules on the upper layers of the architecture.
   - Also, delegation could be a crucial feature if the government generates a credential at the organizational level, which is then used by legal representatives (who are people).
 
+#### Credentials used for authentication
+
 Another scenario is the use of a credential for authentication:
 - In contrast to what can happen with credentials in other identity models, where credentials are used primarily for authentication, it can be risky to use a credential issued by an issuer to authenticate to a service that is not under the control of the issuer, as a malicious issuer could generate a parallel ad-hoc credential to authenticate. For example, it may not be a good idea to log into your personal e-mail with a government-issued credential such as a passport.
 
-Other threats that [must be considered](https://github.com/w3c/identity-web-impact/issues/29#issuecomment-2309436586):
+Other threats [to consider](https://github.com/w3c/identity-web-impact/issues/29#issuecomment-2309436586):
  - Identity leakage
  - Identity impersonation
+
+#### Societal Threats
+
+Other threats [to consider](https://lists.w3.org/Archives/Public/public-review-comments/2024Sep/0017.html) as specified in the [Team report on Federated Identity Working Group Charter Formal Objection - Adding Digital Credentials API](https://www.w3.org/2024/10/team-report-fedid-wg-fo.html):
+- Perpetuates sharing of personal data by making it more available via a browser API
+- Increased centralization through subtle tradeoffs
+- Content will be moved from the deep web to the “attributed deep web”
+- Exchanges user agency for greater compliance and convenience
 
 ## What are we going to do about it?
 
