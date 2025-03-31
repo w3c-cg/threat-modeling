@@ -42,6 +42,9 @@ See the Feature: [Incorporating navigation initiator into the HTTP cache partiti
 and [the slide deck](https://docs.google.com/presentation/d/1StMrI1hNSw_QSmR7bg0w3WcIoYnYIt5K8G2fG01O0IA/edit#slide=id.g2f87bb2d5eb_0_4)
 ## Mitigations
 
+###Algorithmically generated hacks
+
+Academic researchers have devised a means to create computer-generated prompt injections against Gemini that have much higher success rates than manually crafted ones. The new method abuses fine-tuning, a feature offered by some closed-weights models for training them to work on large amounts of private or specialized data, such as a law firm’s legal case files, patient files or research managed by a medical facility, or architectural blueprints. Google makes its fine-tuning for Gemini’s API available free of charge. See the article [https://arstechnica.com/security/2025/03/gemini-hackers-can-deliver-more-potent-attacks-with-a-helping-hand-from-gemini/]
 
 ### AI Isolation
 
