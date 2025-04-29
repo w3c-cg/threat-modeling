@@ -1,16 +1,32 @@
-# AI in the Browser
+# AI in the Browser (Writing Assistance API)
 
-Artificial Intelligence (aka LLM) is getting added to everything, including the Web Browser, which will have some severe unanticipated downside for the user. 
+Large Language Models (LLMs) are a type of Artificial Intelligence (AI) is getting added to everything, including the Web Browser, which will have some severe unanticipated downside for the user. 
 
-Contributor: Tom Jones 2024-10-09 
+Editor: Tom Jones (2024-10-09)
 
-## Context
+## Introcution
 
-Google on Chromium and others in the W3C have been trying to make web apps that are downloaded from web sites, as attractive and useful as native apps, that are downloaded from the app store. Now that AI access is getting added to the browser it is important to look at the impact on the user. The following is a quote from the introduction of one API into Chromium. We can expect more APIs enabling access to AI soon.
+Google on Chromium and others in the W3C have been trying to make web apps that are downloaded from web sites, as attractive and useful as native apps, that are downloaded from the app store. Now that AI access is getting added to the browser it is important to look at the impact on the user. The following is a quote from the introduction of one API into Chromium. We can expect more Web APIs enabling access to AI soon.
 
-Browsers and operating systems are increasingly expected to gain access to a language model. By exposing this built-in model, we avoid every website needing to download their own multi-gigabyte language model, or send input text to third-party APIs. The rewriter API in particular exposes a high-level API for interfacing with a language model in order to transform inputs for a variety of use cases, in a way that does not depend on the specific language model in question. [https://github.com/explainers-by-googlers/writing-assistance-apis/blob/main/README.md\#rewriter-api](https://github.com/explainers-by-googlers/writing-assistance-apis/blob/main/README.md#rewriter-api)
+Browsers and operating systems are increasingly expected to gain access to a language model. By exposing this built-in model, we avoid every website needing to download their own multi-gigabyte language model, or send input text to third-party APIs.
 
-## Vulnerabilities
+Writing Assistance APIs ([explainer](https://github.com/explainers-by-googlers/writing-assistance-apis/blob/main/README.md), [draft community group report](https://webmachinelearning.github.io/writing-assistance-apis/#security)), and in particular [rewriter API](https://webmachinelearning.github.io/writing-assistance-apis/#rewriter-api) exposes a high-level API for interfacing with an LLM in order to transform inputs for a variety of use cases, in a way that does not depend on the specific language model in question.
+
+## Security Assumptions
+
+@@TODO
+
+
+## What are we working on?
+
+Specific higher-level functionality for assistance with writing. Specifically:
+ - The summarizer API produces summaries of input text;
+ - The writer API writes new material, given a writing task prompt;
+ - The rewriter API transforms and rephrases input text in the requested ways.
+
+With specific [Security](https://webmachinelearning.github.io/writing-assistance-apis/#security) and [Privacy](https://webmachinelearning.github.io/writing-assistance-apis/#privacy) considerations
+
+## What can go wrong?
 
 These all arise from providing the website with nearly complete control of what JavaScript runs whenever their page is activated. The above API does include the following language "Finally, we intend to prohibit (in the specification) any use of user-specific information that is not directly supplied through the API. For example, it would not be permissible to fine-tune the language model based on information the user has entered into the browser in the past." The problem here is that the browser does not have control of the LLM  that is provided to the browser or whether the user has provided personal information to that LLM by interactions outside of the browser. The LLM (or other AI) envisioned here is provided in yet another user agent in the user device completely independent of the browser and used by other functions running in the device.
 
@@ -40,8 +56,8 @@ There is a current set of vulnerabilities for caching today that are being addre
 
 See the Feature: [Incorporating navigation initiator into the HTTP cache partition key](https://chromestatus.com/feature/5190577638080512) 
 and [the slide deck](https://docs.google.com/presentation/d/1StMrI1hNSw_QSmR7bg0w3WcIoYnYIt5K8G2fG01O0IA/edit#slide=id.g2f87bb2d5eb_0_4)
-## Mitigations
 
+## What are we going to do about it?
 
 ### AI Isolation
 
@@ -52,5 +68,4 @@ Only AI that has no interaction with the device holder may be accessed by any us
 Particularly for battery operated devices, the amount of power allocated to any one origin must be limited. This could be part of a setting that the holder or device owner was permitted to change based on trusted origins.
 
 ## References
-
   Bruce Schneier, LLM's Data-Control Path Insecurity CACM 67 No 9 page 31-32 downloaded from [LLMs’ Data-Control Path Insecurity – Communications of the ACM](https://cacm.acm.org/opinion/llms-data-control-path-insecurity/)
