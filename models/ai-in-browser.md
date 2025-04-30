@@ -19,9 +19,9 @@ Writing Assistance APIs ([explainer](https://github.com/explainers-by-googlers/w
 
 ## What are we working on?
 
-Specific higher-level functionality for assistance with writing. Specifically:
- - The summarizer API produces summaries of input text;
- - The writer API writes new material, given a writing task prompt;
+Specifically, we are focusing on higher-level functionality for assistance with writing:
+ - The summarizer API produces summaries of input text.
+ - The writer API writes new material, given a writing task prompt.
  - The rewriter API transforms and rephrases input text in the requested ways.
 
 With specific [Security](https://webmachinelearning.github.io/writing-assistance-apis/#security) and [Privacy](https://webmachinelearning.github.io/writing-assistance-apis/#privacy) considerations
