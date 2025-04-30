@@ -10,7 +10,7 @@ Google on Chromium and others in the W3C have been trying to make web apps that 
 
 Browsers and operating systems are increasingly expected to gain access to a language model. By exposing this built-in model, we avoid every website needing to download their own multi-gigabyte language model, or send input text to third-party APIs.
 
-Writing Assistance APIs ([explainer](https://github.com/explainers-by-googlers/writing-assistance-apis/blob/main/README.md), [draft community group report](https://webmachinelearning.github.io/writing-assistance-apis/#security)), and in particular [rewriter API](https://webmachinelearning.github.io/writing-assistance-apis/#rewriter-api) exposes a high-level API for interfacing with an LLM in order to transform inputs for a variety of use cases, in a way that does not depend on the specific language model in question.
+Writing Assistance APIs ([explainer](https://github.com/explainers-by-googlers/writing-assistance-apis/blob/main/README.md), the [draft community group report](https://webmachinelearning.github.io/writing-assistance-apis/#security)), and, in particular, the [rewriter API](https://webmachinelearning.github.io/writing-assistance-apis/#rewriter-api) — all expose a high-level API for interfacing with an LLM to transform inputs for a variety of use cases, in a way that does not depend on the specific language model in question.
 
 ## Security Assumptions
 
