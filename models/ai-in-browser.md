@@ -1,6 +1,6 @@
 # AI in the Browser (Writing Assistance API)
 
-Large Language Models (LLMs) are a type of Artificial Intelligence (AI) is getting added to everything, including the Web Browser, which will have some severe unanticipated downside for the user. 
+Large Language Models (LLMs) — a type of Artificial Intelligence (AI) — is getting added to everything, including the Web Browser, which will have some severe unanticipated downsides for the user. 
 
 Editor: Tom Jones (2024-10-09)
 
