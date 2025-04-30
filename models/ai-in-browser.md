@@ -4,7 +4,7 @@ Large Language Models (LLMs) — a type of Artificial Intelligence (AI) — is g
 
 Editor: Tom Jones (2024-10-09)
 
-## Introcution
+## Introduction
 
 Google on Chromium and others in the W3C have been trying to make web apps that are downloaded from web sites, as attractive and useful as native apps, that are downloaded from the app store. Now that AI access is getting added to the browser it is important to look at the impact on the user. The following is a quote from the introduction of one API into Chromium. We can expect more Web APIs enabling access to AI soon.
 
