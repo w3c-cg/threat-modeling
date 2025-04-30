@@ -44,7 +44,7 @@ and [the slide deck](https://docs.google.com/presentation/d/1StMrI1hNSw_QSmR7bg0
 
 ###Algorithmically generated hacks
 
-Academic researchers have devised a means to create computer-generated prompt injections against Gemini that have much higher success rates than manually crafted ones. The new method abuses fine-tuning, a feature offered by some closed-weights models for training them to work on large amounts of private or specialized data, such as a law firm’s legal case files, patient files or research managed by a medical facility, or architectural blueprints. Google makes its fine-tuning for Gemini’s API available free of charge. See the article [https://arstechnica.com/security/2025/03/gemini-hackers-can-deliver-more-potent-attacks-with-a-helping-hand-from-gemini/]
+Academic researchers have devised a means by which to cause Gemini to generate prompt injections against itself that have much higher success rates than manually crafted prompts. The new method abuses fine-tuning, a feature offered by some closed-weight models for training them to work on large amounts of private or specialized data, such as legal case files managed by a law firm, blueprints managed by an architectural firm, or patient files or research data managed by a medical facility. Google makes its fine-tuning of Gemini’s API available free of charge. See the article [Gemini hackers can deliver more potent attacks with a helping hand from… Gemini](https://arstechnica.com/security/2025/03/gemini-hackers-can-deliver-more-potent-attacks-with-a-helping-hand-from-gemini/)
 
 ### AI Isolation
 
