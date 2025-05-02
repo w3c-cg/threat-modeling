@@ -8,9 +8,9 @@ Editor: Tom Jones (2024-10-09)
 
 Google on Chromium, and others in the W3C, have been trying to make web apps, that are downloaded from web sites, as attractive and useful as native apps, that are downloaded from the app store. Now that AI access is getting added to the browser, it is important to look at the impact on the user. The following is a quote from the introduction of one API into Chromium. We can expect more Web APIs enabling access to AI soon.
 
-Browsers and operating systems are increasingly expected to gain access to a language model. By exposing this built-in model, we avoid every website needing to download their own multi-gigabyte language model, or send input text to third-party APIs.
+> Browsers and operating systems are increasingly expected to gain access to a language model. By exposing this built-in model, we avoid every website needing to download their own multi-gigabyte language model, or send input text to third-party APIs.
 
-Writing Assistance APIs ([explainer](https://github.com/explainers-by-googlers/writing-assistance-apis/blob/main/README.md), the [draft community group report](https://webmachinelearning.github.io/writing-assistance-apis/#security)), and, in particular, the [rewriter API](https://webmachinelearning.github.io/writing-assistance-apis/#rewriter-api) — all expose a high-level API for interfacing with an LLM to transform inputs for a variety of use cases, in a way that does not depend on the specific language model in question.
+Writing Assistance APIs ([explainer](https://github.com/explainers-by-googlers/writing-assistance-apis/blob/main/README.md), [draft community group report](https://webmachinelearning.github.io/writing-assistance-apis/)), expose a high-level API for interfacing with an LLM to transform inputs for a variety of use cases, in a way that does not depend on the specific language model in question.
 
 ## Security Assumptions
 
@@ -24,7 +24,7 @@ Specifically, we are focusing on higher-level functionality for assistance with 
  - The writer API writes new material, given a writing task prompt.
  - The rewriter API transforms and rephrases input text in the requested ways.
 
-With specific [Security](https://webmachinelearning.github.io/writing-assistance-apis/#security) and [Privacy](https://webmachinelearning.github.io/writing-assistance-apis/#privacy) considerations
+They have dedicated [Security](https://webmachinelearning.github.io/writing-assistance-apis/#security) and [Privacy](https://webmachinelearning.github.io/writing-assistance-apis/#privacy) considerations.
 
 ## What can go wrong?
 
