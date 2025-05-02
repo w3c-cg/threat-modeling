@@ -6,7 +6,7 @@ Editor: Tom Jones (2024-10-09)
 
 ## Introduction
 
-Google on Chromium and others in the W3C have been trying to make web apps that are downloaded from web sites, as attractive and useful as native apps, that are downloaded from the app store. Now that AI access is getting added to the browser it is important to look at the impact on the user. The following is a quote from the introduction of one API into Chromium. We can expect more Web APIs enabling access to AI soon.
+Google on Chromium, and others in the W3C, have been trying to make web apps, that are downloaded from web sites, as attractive and useful as native apps, that are downloaded from the app store. Now that AI access is getting added to the browser, it is important to look at the impact on the user. The following is a quote from the introduction of one API into Chromium. We can expect more Web APIs enabling access to AI soon.
 
 Browsers and operating systems are increasingly expected to gain access to a language model. By exposing this built-in model, we avoid every website needing to download their own multi-gigabyte language model, or send input text to third-party APIs.
 
