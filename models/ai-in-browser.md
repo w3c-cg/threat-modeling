@@ -6,7 +6,7 @@ Editor: Tom Jones (2024-10-09)
 
 Large Language Models (LLMs) — a type of Artificial Intelligence (AI) — is getting added to everything, including the Web Browser. As specified in the [Writing Assistance APIs Explainer](https://github.com/explainers-by-googlers/writing-assistance-apis/blob/main/README.md) _Browsers and operating systems are increasingly expected to gain access to a language model_.
 
-Web applications can benefit from using language models for a variety of use cases". It is therefore useful to analyze and consider a specific Threat Model.
+Web applications can benefit from using language models for a variety of use cases. It is therefore useful to analyze and consider a specific Threat Model.
 
 ## Introduction
 
