@@ -60,6 +60,11 @@ and [the slide deck](https://docs.google.com/presentation/d/1StMrI1hNSw_QSmR7bg0
 
 ## What are we going to do about it?
 
+### Algorithmically generated hacks
+
+Academic researchers have devised a means by which to cause Gemini to generate prompt injections against itself that have much higher success rates than manually crafted prompts. The new method abuses fine-tuning, a feature offered by some closed-weight models for training them to work on large amounts of private or specialized data, such as legal case files managed by a law firm, blueprints managed by an architectural firm, or patient files or research data managed by a medical facility. Google makes its fine-tuning of Gemini’s API available free of charge. See the article [Gemini hackers can deliver more potent attacks with a helping hand from… Gemini](https://arstechnica.com/security/2025/03/gemini-hackers-can-deliver-more-potent-attacks-with-a-helping-hand-from-gemini/)
+
+
 ### AI Isolation
 
 Only AI that has no interaction with the device holder may be accessed by any user agent that hosts pages from a web site that is not fully trusted by the holder or device owner. Specifically, the impact of the prompts entered by an origin site should not be able to impact either the holder or other origin site’s interactions with the holder.
