@@ -16,7 +16,7 @@ There are many ways to add AI functionality to a Web Browser:
 
  - **Browser-level**: as an Extension, such as [Orbit by Firefox](https://addons.mozilla.org/en-US/firefox/addon/orbit-summarizer/), or built into the Browser itself, such as [Copilot in Edge](https://www.microsoft.com/en-us/edge/copilot).
 
- - **Computer-Using Agent (CUA)**: like [Operator](https://openai.com/index/introducing-operator/): "Combining GPT‑4o's vision capabilities with advanced reasoning through reinforcement learning, CUA is trained to interact with graphical user interfaces (GUIs)—the buttons, menus, and text fields people see on a screen". The Human is using the Browsert through and LLM.
+ - **Computer-Using Agent (CUA)**: like [Operator](https://openai.com/index/introducing-operator/): "Combining GPT‑4o's vision capabilities with advanced reasoning through reinforcement learning, CUA is trained to interact with graphical user interfaces (GUIs)—the buttons, menus, and text fields people see on a screen". The Human is using the Browser through an LLM.
 
  - **Agentic Web**: Different Agents, talking to each other using [defined protocols](https://w3c-cg.github.io/ai-agent-protocol/), and also visiting the web. Human don't have always the clear visibility to what is happening.
 
