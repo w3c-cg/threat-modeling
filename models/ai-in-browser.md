@@ -10,7 +10,7 @@ Web applications can benefit from using language models for a variety of use cas
 
 ## Introduction
 
-There are many ways to add AI functionality to a Web Browser, or visiting the Web:
+There are many ways to add AI functionality to a Web Browser:
 
  - **Web API**: One example, which led to the creation of this model, relates to writing support features, is the _Writing Assistance APIs_ ([Explainer](https://github.com/explainers-by-googlers/writing-assistance-apis/blob/main/README.md), [Draft Community Group Report](https://webmachinelearning.github.io/writing-assistance-apis/), [Security Considerations](https://webmachinelearning.github.io/writing-assistance-apis/#security), [Privacy Considerations](https://webmachinelearning.github.io/writing-assistance-apis/#privacy)), which exposes a high-level API for interfacing with an LLM to transform inputs for a variety of use cases, in a way that does not depend on the specific language model in question (The summarizer API produces summaries of input text; The writer API writes new material, given a writing task prompt; The rewriter API transforms and rephrases input text in the requested ways). Other APIs are [Language Detection](https://webmachinelearning.github.io/translation-api/#language-detector-api), [Translation](https://webmachinelearning.github.io/translation-api/#translator-api), and a general [Prompt API](https://github.com/webmachinelearning/prompt-api).
 
