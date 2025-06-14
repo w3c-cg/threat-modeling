@@ -40,7 +40,7 @@ Within this document, we can consider the following definitions:
 
 ### User Profiling
 
-The web site will be able to ask the AI loaded on the user's device for a UI that would match what the user would see as the local AI is used in that personal user device. Trying different responses to the same user (via the local AI agent) would give the website information about the user's preferences and behavior. Clearly this is a way to avoid asking the user’s consent to share information by trying to extract it from the user's AI without the user's permission or knowledge. 
+A web site might be able to ask an LLM loaded on the user's device to present a UI that would match what the user would see when using the local LLM in that personal user device. Trying different responses to the same user (via the local LLM agent) could give the website information about the user's preferences and behavior. This could be a way to avoid asking the user’s consent to share information, by trying to extract it from the user's LLM without the user's permission or knowledge. 
 
 ### Prompt Injection and Prompt Poisoning
 
