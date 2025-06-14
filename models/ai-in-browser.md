@@ -18,7 +18,7 @@ There are many ways to add AI functionality to a Web Browser:
 
  - **Computer-Using Agent (CUA)**: like [Operator](https://openai.com/index/introducing-operator/): "Combining GPT‑4o's vision capabilities with advanced reasoning through reinforcement learning, CUA is trained to interact with graphical user interfaces (GUIs)—the buttons, menus, and text fields people see on a screen". The Human is using the Browser through an LLM.
 
- - **Agentic Web**: Different Agents, talking to each other using [defined protocols](https://w3c-cg.github.io/ai-agent-protocol/), and also visiting the web. Human don't have always the clear visibility to what is happening.
+ - **Agentic Web**: Here we have different Agents, talking to each other using [defined protocols](https://w3c-cg.github.io/ai-agent-protocol/), and also visiting the web. Human don't always have clear visibility on what is happening.
 
 ### Terminology
 
