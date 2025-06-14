@@ -25,7 +25,9 @@ There are many ways to add AI functionality to a Web Browser:
 Within this document, we can consider the following definitions:
 
 - **Browser**: any user experience display where the input to the display. As defined in the Threat Model of the Web, the Browser receives Web contents from a potentially untrusted source, which can include scripting languages and executable code.
-- **AI**: In the context of this document, we consider a specific case of AI, as Large Language Model, as an algorithm that receives as an input prompts from users and its output is a text or another type of content.
+- **Artificial Intelligence (AI)**: AI, though a misnomer in most cases as it is not truly "intelligent," serves as a reasonable label for "Machine Learning" or "ML" functionality.
+
+- **Large Language Model (LLM)**: An LLM is an algorithm that receives prompts from users as an input, and provides text or other type of content as its output.
 
 ## Security Assumptions
 
