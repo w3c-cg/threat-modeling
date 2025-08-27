@@ -14,6 +14,8 @@ The scope is the Computer-Using Agent (CUA) and Agentic AI Web Browsers.
 
 For other types of integration between the Web and the AI, please refer to [AI in Web API](https://github.com/w3c-cg/threat-modeling/blob/main/models/ai-in-browser.md).
 
+This model encompasses the various threats outlined in the [Web Threat Model](https://github.com/w3c/threat-model-web).
+
 # Analysis
 
 Different processes can be used to threat model. This document is structured using the Threat modeling process proposed by  Shostack (2014):
