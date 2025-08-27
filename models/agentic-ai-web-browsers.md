@@ -28,7 +28,7 @@ Different processes can be used to threat model. This document is structured usi
 
 An agent refers to "Someone who takes action or exercises power; something that produces or can produce an effect; a means or tool for guiding intelligence to achieve results; one who is authorized to act for or in the place of another; a computer application designed to automate certain tasks”  (Merriam-Webster, n.d.).
 
-This definition has important implications. In particular, the agent is authorized to perform an action on behalf of someone, e.g., the user, who controls it (with all the Human-Identity/Non-Human-Identity issues) to automate certain tasks.
+This definition has important implications. In particular, the agent is authorized to act on behalf of someone, such as the user, who controls it (with all the associated Human-Identity/Non-Human-Identity issues) to automate certain tasks.
 
 ### What are Web Agents?
 
@@ -46,7 +46,7 @@ However, to optimize time, the user can automate the process, for example, by wr
  - Downloads and parses the holiday data (luckily, there is also an .ical file, as per RFC 2445).
  - Provides the W3C credentials to the script at runtime, so that the script can log into the W3C website and enter the holidays in the correct place.
 
-It is possible to use Playwright, which allows you to control a browser from Python, to avoid hassles with WAFs and provide a simplified login experience, or to utilize other libraries or external tools, such as curl.
+It is possible to use Playwright, which allows to control a browser from Python, to avoid hassles with WAFs and provide a simplified login experience, or to utilize other libraries or external tools, such as curl.
 
 ### What are AI Agents?
 
@@ -54,7 +54,7 @@ Of course, there may be scripts that also include LLMs, obtaining an AI Agent.
 
 Often, the case is where an LLM is used as the primary interface between the user and the task they want to accomplish or to interpret the output of the script.
 
-This also simplifies the need to write a specific agent, if an agent can navigate the web autonomously.
+This also simplifies the need to write a specific agent if an agent can navigate the web autonomously.
 
 In terms of interface, it is possible to interact in different ways (Lanham, 2025):
 - **Direct**: We chat with an LLM that responds only with text based on how it was trained.
@@ -66,7 +66,7 @@ It is also possible to have multi-agent interactions, a combination of the previ
 
 Essentially, an AI agent is very similar to a non-AI agent, the primary difference being that it incorporates a model (LLM or an AI element) among its components. 
 
-This component utilizes statistics and, as such, receives the same input; however, it is not always the case that it yields the same result, except that there are parameters that enable it to respond in a similar manner (Atil et al., 2024). 
+This component utilizes statistics and, as such, receives the same input; however, it is not always the case that it yields the same result, except that there are parameters that enable it to respond similarly (Atil et al., 2024). 
 
 Having this in mind, in terms of security, it is important to be careful of: all with the inputs, for example both user prompts, what the agent ‘reads’ (e.g., a web page), and input from other agents; other aspects specific of using models; and then how the model is integrated with infrastructure elements, data, and therefore the application part, which includes communication with other agents (Meucci & Morana, 2025).
 
