@@ -8,6 +8,8 @@ Threats Against Humans
 * **Hyper-Personalized Phishing:** AI agents industrialize tailored spear-phishing campaigns, quickly gathering personal information to create highly believable, contextual lures that manipulate human emotions and trust.  
 * **Fake Interview & Job Scams:** Attackers deploy synthetic identities and real-time deepfake videos to pass remote job interviews, enabling them to steal salaries, exfiltrate internal data, or act as insider threats.  
 * **Reputational Extortion:** Bad actors use fabricated, hyper-realistic media to blackmail executives or employees, threatening to publicly release compromising deepfake content.
+* **Server‑Side Request Forgery** is an attack where an attacker tricks a server (or AI agent) into making a request to an internal or privileged resource that the attacker should not have access to.
+* **Client‑Side Request Forgery** is where the attacker is othe web-site that the user visits that loads AI requests directly into the browser to either acquire information and credentials from the user or just uses the local AI client to exfiltrate information about the user.
 
 Threats Against Websites
 
