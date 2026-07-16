@@ -45,7 +45,7 @@ The primary native app is the web browser.
 
 ## What can go wrong?
 
-These all arise from providing the website with nearly complete control of what JavaScript runs whenever their page is activated. The above API does include the following language "Finally, we intend to prohibit (in the specification) any use of user-specific information that is not directly supplied through the API. For example, it would not be permissible to fine-tune the language model based on information the user has entered into the browser in the past." The problem here is that the browser does not have control of the LLM  that is provided to the browser or whether the user has provided personal information to that LLM by interactions outside of the browser. The LLM (or other AI) envisioned here is provided in yet another user agent in the user device completely independent of the browser and used by other functions running in the device.
+The following sections identify possible threats, not assumptions that apply to every design. Their applicability depends on how AI functionality is integrated with the browser. A browser may select and manage the model itself, or it may communicate with a model provided by another component. Each implementation therefore needs to identify its data flows, model state, isolation mechanisms, and trust boundaries. Threats that rely on persistent or shared state, including cross-origin or cross-application state, apply only when that state exists or can cross those boundaries.
 
 ### User Profiling
 
